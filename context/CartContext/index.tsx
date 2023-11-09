@@ -23,14 +23,14 @@ export const CartContext = createContext<{
 
 export const CartContextProvider = ({ children }: CardContextProviderProps) => {
   const storedCart =
-    typeof window != undefined ? window.localStorage.getItem('cart') : null;
+    typeof window !== 'undefined' ? window.localStorage.getItem('cart') : null;
   const [state, dispatch] = useReducer(
     cartReducer,
     storedCart ? JSON.parse(storedCart) : initialState,
   );
 
   useEffect(() => {
-    typeof window != undefined
+    typeof window !== 'undefined'
       ? window.localStorage.setItem('cart', JSON.stringify(state))
       : null;
   }, [state]);
