@@ -9,7 +9,12 @@ enum CartActionType {
   DECREASE_QTY = 'DECREASE_QTY',
 }
 
-const cartReducer = (state: CartContextState, action) => {
+type CartAction = {
+  type: CartActionType;
+  payload: ProductWithQuantity;
+};
+
+const cartReducer = (state: CartContextState, action: CartAction) => {
   switch (action.type) {
     case CartActionType.ADD_ITEM:
       return {
@@ -35,7 +40,7 @@ const cartReducer = (state: CartContextState, action) => {
       return {
         ...state,
         products: state.products.map((item) => {
-          if (item.id === action.payload) {
+          if (item.id === action.payload.id) {
             return { ...item, quantity: item.quantity + 1 };
           }
           return item;
@@ -47,7 +52,7 @@ const cartReducer = (state: CartContextState, action) => {
         ...state,
         products: state.products
           .map((item) => {
-            if (item.id === action.payload) {
+            if (item.id === action.payload.id) {
               return { ...item, quantity: item.quantity - 1 };
             }
             return item;

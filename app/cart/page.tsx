@@ -89,7 +89,7 @@ function CartPage() {
                       aria-label={`Decrease quantity of product ${product.title}`}
                       className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
                       onClick={() =>
-                        dispatch({ type: 'DECREASE_QTY', payload: product.id })
+                        dispatch({ type: 'DECREASE_QTY', payload: product })
                       }
                     >
                       <MinusIcon width={24} />
@@ -99,7 +99,7 @@ function CartPage() {
                       aria-label={`Increase quantity of product ${product.title}`}
                       className="rounded-sm bg-green-700 p-0.5 text-white shadow shadow-green-700 transition-all duration-200 xl:hover:bg-green-600 xl:hover:shadow-green-600"
                       onClick={() =>
-                        dispatch({ type: 'INCREASE_QTY', payload: product.id })
+                        dispatch({ type: 'INCREASE_QTY', payload: product })
                       }
                     >
                       <PlusIcon width={24} />
