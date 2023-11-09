@@ -1,0 +1,3 @@
+.empty-cart-button {
+  @apply flex w-72 items-center justify-center gap-2 rounded-md border border-zinc-900 bg-zinc-900 py-2 font-bold uppercase text-zinc-100 shadow-sm shadow-zinc-700 transition-all duration-200 xl:hover:border-rose-900 xl:hover:bg-rose-900;
+}
