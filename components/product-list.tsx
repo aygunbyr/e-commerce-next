@@ -1,41 +1,26 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 
 import Card from '@/components/card';
-import { fetchCategories, fetchProducts } from '@/services';
 import type { Product } from '@/types';
 import { toCapitalCase } from '@/utils';
 
-const ProductList = () => {
+interface ProductListProps {
+  products: Product[];
+  categories: string[];
+}
+
+const ProductList = ({ products, categories }: ProductListProps) => {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
-
-  const {
-    isLoading: isLoadingProducts,
-    error: errorProducts,
-    data: products,
-  } = useQuery({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
-
-  const {
-    isLoading: isLoadingCategories,
-    error: errorCategories,
-    data: categories,
-  } = useQuery({
-    queryKey: ['categories'],
-    queryFn: fetchCategories,
-  });
 
   const filteredProducts = useMemo(() => {
     if (!products) return [];
     const filteredByCategory =
       filter === 'all'
-        ? products.data
-        : products.data.filter((item: Product) => item.category === filter);
+        ? products
+        : products.filter((item: Product) => item.category === filter);
 
     const searchLowerCase = search.toLowerCase();
 
@@ -53,18 +38,6 @@ const ProductList = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };
-
-  if (isLoadingProducts || isLoadingCategories) {
-    return <div>Loading...</div>;
-  }
-
-  if (errorProducts) {
-    return <div>An error occured: {errorProducts.message}</div>;
-  }
-
-  if (errorCategories) {
-    return <div>An error occured: {errorCategories.message}</div>;
-  }
 
   return (
     <>
@@ -85,7 +58,7 @@ const ProductList = () => {
             value={filter}
           >
             <option value="all">All Categories</option>?
-            {categories?.data.map((category: string, index: number) => (
+            {categories?.map((category: string, index: number) => (
               <option key={index} value={category}>
                 {toCapitalCase(category)}
               </option>
