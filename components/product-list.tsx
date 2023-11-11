@@ -46,7 +46,7 @@ const ProductList = ({ products, categories }: ProductListProps) => {
         className="flex flex-col items-center justify-between gap-4 rounded-lg bg-zinc-900 p-2 text-lg sm:flex-row sm:gap-0"
         onSubmit={handleSubmit}
       >
-        <div className="flex items-center gap-2 self-start">
+        <div className="inline-flex items-center gap-2 self-start">
           <label htmlFor="filter-select" className="w-20 min-w-fit text-white">
             Filter by:
           </label>
@@ -65,7 +65,7 @@ const ProductList = ({ products, categories }: ProductListProps) => {
             ))}
           </select>
         </div>
-        <div className="flex items-center gap-2 self-start">
+        <div className="inline-flex items-center gap-2 self-start">
           <label
             htmlFor="search"
             className="w-20 min-w-fit text-white sm:hidden"
@@ -73,7 +73,7 @@ const ProductList = ({ products, categories }: ProductListProps) => {
             Search:
           </label>
           <input
-            className="max-w-fit rounded p-0.5 focus:outline-none"
+            className="max-w-fit rounded px-1 py-0.5 focus:outline-none"
             id="search"
             name="search"
             type="text"
