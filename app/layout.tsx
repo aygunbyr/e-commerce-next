@@ -26,11 +26,11 @@ export default function RootLayout({
         <div className="flex min-h-screen flex-col bg-gray-50 font-inter">
           <ClientProvider>
             <Header />
+            <main className="container mb-20 flex-1 space-y-4 px-1 py-1 text-gray-900 max-xl:w-96">
+              {children}
+            </main>
+            <Footer />
           </ClientProvider>
-          <main className="container mb-20 flex-1 space-y-4 px-1 py-1 text-gray-900 max-xl:w-96">
-            {children}
-          </main>
-          <Footer />
         </div>
       </body>
     </html>
