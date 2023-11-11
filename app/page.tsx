@@ -1,5 +1,5 @@
-import ProductList from '@/components/ProductList';
-import Slider from '@/components/Slider';
+import ProductList from '@/components/product-list';
+import Slider from '@/components/slider';
 
 export default function Home() {
   return (

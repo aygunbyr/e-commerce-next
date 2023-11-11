@@ -1,5 +1,20 @@
-import { ProductWithQuantity } from '@/types';
-import { CartContextState } from './index';
+'use client';
+
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
+
+import type { ProductWithQuantity } from '@/types';
+
+interface CartContextState {
+  products: ProductWithQuantity[];
+}
+
+const initialState: CartContextState = {
+  products: [],
+};
+
+interface CardContextProviderProps {
+  children: React.ReactNode;
+}
 
 enum CartActionType {
   ADD_ITEM = 'ADD_ITEM',
@@ -65,4 +80,37 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
   }
 };
 
-export default cartReducer;
+const CartContext = createContext<{
+  state: CartContextState;
+  dispatch: React.Dispatch<any>;
+}>({ state: initialState, dispatch: () => null });
+
+export const CartContextProvider = ({ children }: CardContextProviderProps) => {
+  const storedCart =
+    typeof window !== 'undefined' ? localStorage.getItem('cart') : null;
+
+  const [state, dispatch] = useReducer(
+    cartReducer,
+    storedCart ? JSON.parse(storedCart) : initialState,
+  );
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(state));
+  }, [state]);
+
+  return (
+    <CartContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CartContext.Provider>
+  );
+};
+
+export const useCart = () => {
+  const context = useContext(CartContext);
+
+  if (!context) {
+    throw new Error('useCart must be used within a CartContextProvider');
+  }
+
+  return context;
+};

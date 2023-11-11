@@ -1,12 +1,13 @@
 'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/solid';
 import { toast } from 'react-toastify';
 
-import useCart from '@/context/CartContext/hook';
-import styles from './styles.module.css';
+import { useCart } from '@/context/cart-context';
+import styles from '@/styles/card/styles.module.css';
 import { Product } from '@/types';
 import Image from 'next/image';
 
@@ -14,7 +15,7 @@ interface CardProps {
   product: Product;
 }
 
-function Card({ product }: CardProps) {
+const Card = ({ product }: CardProps) => {
   const { title, price, image } = product;
   const { state, dispatch } = useCart();
   const itemInCart = state.products?.some((item) => item.id === product.id);
@@ -74,6 +75,6 @@ function Card({ product }: CardProps) {
       </button>
     </div>
   );
-}
+};
 
 export default Card;

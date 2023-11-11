@@ -1,4 +1,6 @@
 'use client';
+
+import Image from 'next/image';
 import { useWindowSize } from '@uidotdev/usehooks';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,12 +9,11 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-import './index.css';
-import Image from 'next/image';
+import '@/styles/slider/index.css';
 
 const Slide = ({ imageSrc }: { imageSrc: string }) => {
   return (
-    <div className="h-72 md:h-80 xl:h-[600px]">
+    <div className="relative h-72 md:h-80 xl:h-[600px]">
       <Image src={imageSrc} alt="Slide" fill className="object-cover" />
     </div>
   );

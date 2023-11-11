@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useMemo } from 'react';
 import Link from 'next/link';
 import {
@@ -10,7 +11,7 @@ import {
 import { toast } from 'react-toastify';
 
 import styles from './styles.module.css';
-import useCart from '../../context/CartContext/hook';
+import { useCart } from '../../context/cart-context';
 import type { ProductWithQuantity } from '@/types';
 
 function CartPage() {

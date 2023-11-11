@@ -1,13 +1,14 @@
 'use client';
+
 import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import Card from '@/components/Card';
+import Card from '@/components/card';
 import { fetchCategories, fetchProducts } from '@/services';
 import type { Product } from '@/types';
 import { toCapitalCase } from '@/utils';
 
-function ProductList() {
+const ProductList = () => {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
 
@@ -123,6 +124,6 @@ function ProductList() {
       </section>
     </>
   );
-}
+};
 
 export default ProductList;

@@ -1,11 +1,12 @@
 'use client';
+
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
 import styles from './styles.module.css';
-import useCart from '@/context/CartContext/hook';
+import { useCart } from '@/context/cart-context';
 import { fetchProduct } from '@/services';
 
 const ProductDetail = (props: { params: { id: number } }) => {
