@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
-import styles from '@/styles/cart-container/styles.module.css';
+import styles from '@/styles/cart-page/styles.module.css';
 import { useCart } from '@/context/cart-context';
 import type { ProductWithQuantity } from '@/types';
 

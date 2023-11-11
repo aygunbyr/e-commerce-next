@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
-    "@tanstack/react-query-devtools": "^5.8.1",
     "@uidotdev/usehooks": "^2.4.1",
     "next": "14.0.1",
     "react": "^18",
