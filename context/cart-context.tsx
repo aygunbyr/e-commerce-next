@@ -22,11 +22,12 @@ enum CartActionType {
   EMPTY_CART = 'EMPTY_CART',
   INCREASE_QTY = 'INCREASE_QTY',
   DECREASE_QTY = 'DECREASE_QTY',
+  SET_CART = 'SET_CART',
 }
 
 type CartAction = {
   type: CartActionType;
-  payload: ProductWithQuantity;
+  payload: any;
 };
 
 const cartReducer = (state: CartContextState, action: CartAction) => {
@@ -75,6 +76,12 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
           .filter((item) => item.quantity > 0),
       };
 
+    case CartActionType.SET_CART:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
     default:
       return state;
   }
@@ -86,13 +93,17 @@ const CartContext = createContext<{
 }>({ state: initialState, dispatch: () => null });
 
 export const CartContextProvider = ({ children }: CardContextProviderProps) => {
-  const storedCart =
-    typeof window !== 'undefined' ? localStorage.getItem('cart') : null;
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  const [state, dispatch] = useReducer(
-    cartReducer,
-    storedCart ? JSON.parse(storedCart) : initialState,
-  );
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      dispatch({
+        type: CartActionType.SET_CART,
+        payload: JSON.parse(storedCart),
+      });
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(state));
