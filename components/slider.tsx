@@ -14,7 +14,14 @@ import '@/styles/slider/index.css';
 const Slide = ({ imageSrc }: { imageSrc: string }) => {
   return (
     <div className="relative h-72 md:h-80 xl:h-[600px]">
-      <Image src={imageSrc} alt="Slide" fill className="object-cover" />
+      <Image
+        src={imageSrc}
+        alt="Slide"
+        fill
+        className="object-cover"
+        priority
+        loading="eager"
+      />
     </div>
   );
 };
