@@ -43,7 +43,7 @@ const ProductList = ({ products, categories }: ProductListProps) => {
     <>
       <form
         id="filter-form"
-        className="flex flex-col items-center justify-between gap-4 rounded-lg bg-zinc-900 p-2 text-lg sm:flex-row sm:gap-0"
+        className="mt-1 flex flex-col items-center justify-between gap-4 rounded bg-zinc-900 p-2 text-lg sm:flex-row sm:gap-0"
         onSubmit={handleSubmit}
       >
         <div className="inline-flex items-center gap-2 self-start">
