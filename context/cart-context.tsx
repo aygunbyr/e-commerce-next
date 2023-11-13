@@ -5,10 +5,12 @@ import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import type { ProductWithQuantity } from '@/types';
 
 interface CartContextState {
+  loading: boolean;
   products: ProductWithQuantity[];
 }
 
 const initialState: CartContextState = {
+  loading: true,
   products: [],
 };
 
@@ -23,6 +25,7 @@ enum CartActionType {
   INCREASE_QTY = 'INCREASE_QTY',
   DECREASE_QTY = 'DECREASE_QTY',
   SET_CART = 'SET_CART',
+  SET_LOADING = 'SET_LOADING',
 }
 
 type CartAction = {
@@ -82,6 +85,12 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
         ...action.payload,
       };
 
+    case CartActionType.SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+
     default:
       return state;
   }
@@ -103,6 +112,7 @@ export const CartContextProvider = ({ children }: CardContextProviderProps) => {
         payload: JSON.parse(storedCart),
       });
     }
+    dispatch({ type: CartActionType.SET_LOADING, payload: false });
   }, []);
 
   useEffect(() => {

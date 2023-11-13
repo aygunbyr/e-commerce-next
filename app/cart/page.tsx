@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import styles from '@/styles/cart-page/styles.module.css';
 import { useCart } from '@/context/cart-context';
 import type { ProductWithQuantity } from '@/types';
+import Loading from '@/components/loading';
 
 const CartPage = () => {
   const { state: cart, dispatch } = useCart();
@@ -36,6 +37,10 @@ const CartPage = () => {
       )
       .toFixed(2);
   }, [cart.products]);
+
+  if (cart.loading) {
+    return <Loading />;
+  }
 
   return (
     <section id="page-cart" className="mt-8">
