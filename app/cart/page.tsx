@@ -57,12 +57,14 @@ const CartPage = () => {
             <thead className="bg-zinc-900 text-zinc-100">
               <tr className="flex">
                 <th className="flex-1 p-4 text-center max-md:hidden">Photo</th>
-                <th className="flex-1 p-4 text-start max-md:hidden">Product</th>
+                <th className="flex-[2] p-4 text-start max-md:hidden">
+                  Product
+                </th>
                 <th className="flex-1 p-4 text-center max-md:hidden">Price</th>
                 <th className="flex-1 p-4 text-center max-md:hidden">
                   Quantity
                 </th>
-                <th className="flex-1 p-4 text-start max-md:hidden">Action</th>
+                <th className="flex-1 p-4 text-center max-md:hidden">Action</th>
               </tr>
             </thead>
             <tbody className="flex flex-col">
@@ -84,7 +86,7 @@ const CartPage = () => {
                       />
                     </Link>
                   </td>
-                  <td className="flex-1 p-4 text-lg font-bold">
+                  <td className="flex-[2] p-4 text-lg font-bold">
                     {product.title}
                   </td>
                   <td className="flex-1 p-4 text-center text-lg font-bold">
