@@ -75,7 +75,7 @@ const CartPage = () => {
                         src={product.image}
                         alt={product.title}
                         aria-label={product.title}
-                        className="mx-auto w-32 self-center p-4 mix-blend-multiply xl:hover:scale-105"
+                        className="mx-auto h-28 self-center p-4 mix-blend-multiply sm:h-32 xl:hover:scale-105"
                       />
                     </Link>
                   </td>
@@ -85,7 +85,7 @@ const CartPage = () => {
                   <td className="flex-1 p-4 text-center text-lg font-bold">
                     {product.price} ₺
                   </td>
-                  <td className="flex flex-1 items-center justify-center gap-4 p-4 text-center text-lg font-bold">
+                  <td className="inline-flex flex-1 items-center justify-center gap-4 p-4 text-center text-lg font-bold">
                     <button
                       aria-label={`Decrease quantity of product ${product.title}`}
                       className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
@@ -95,7 +95,7 @@ const CartPage = () => {
                     >
                       <MinusIcon width={24} />
                     </button>
-                    {product.quantity} Pcs.
+                    <span>{product.quantity} Pcs.</span>
                     <button
                       aria-label={`Increase quantity of product ${product.title}`}
                       className="rounded-sm bg-green-700 p-0.5 text-white shadow shadow-green-700 transition-all duration-200 xl:hover:bg-green-600 xl:hover:shadow-green-600"
@@ -109,7 +109,7 @@ const CartPage = () => {
                   <td className="flex-1 p-4">
                     <button
                       aria-label={`Remove product from cart`}
-                      className="min-w-content flex w-full items-center justify-center gap-2 rounded bg-zinc-900 p-2 text-white transition-colors duration-200 xl:hover:bg-rose-900"
+                      className="min-w-content inline-flex w-full items-center justify-center gap-2 rounded bg-zinc-900 p-2 text-white transition-colors duration-200 xl:hover:bg-rose-900"
                       onClick={() => removeItem(product)}
                     >
                       <TrashIcon width={24} aria-hidden="true" />
