@@ -3,7 +3,7 @@ export const fetchProducts = async () => {
     next: { revalidate: 300 },
   });
   if (!res.ok) {
-    throw new Error('Faile to fetch data');
+    throw new Error('Failed to fetch data');
   }
 
   return res.json();
@@ -14,7 +14,7 @@ export const fetchProduct = async (productId: number) => {
     next: { revalidate: 300 },
   });
   if (!res.ok) {
-    throw new Error('Faile to fetch data');
+    throw new Error('Failed to fetch data');
   }
 
   return res.json();
@@ -25,7 +25,7 @@ export const fetchCategories = async () => {
     next: { revalidate: 300 },
   });
   if (!res.ok) {
-    throw new Error('Faile to fetch data');
+    throw new Error('Failed to fetch data');
   }
 
   return res.json();
