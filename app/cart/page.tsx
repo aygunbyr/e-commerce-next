@@ -14,6 +14,7 @@ import styles from '@/styles/cart-page/styles.module.css';
 import { useCart } from '@/context/cart-context';
 import type { ProductWithQuantity } from '@/types';
 import Loading from '@/components/loading';
+import Image from 'next/image';
 
 const CartPage = () => {
   const { state: cart, dispatch } = useCart();
@@ -71,19 +72,22 @@ const CartPage = () => {
               {cart.products.map((product, index) => (
                 <tr
                   key={index}
-                  className="flex items-center border border-b-gray-300 max-md:flex-col max-md:gap-2"
+                  className="flex items-center border border-b-gray-300 max-md:flex-col max-md:gap-2 xl:hover:bg-gray-100"
                 >
                   <td className="flex-1 p-4">
                     <Link
                       aria-label={product.title}
                       href={`/product/${product.id}`}
                     >
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        aria-label={product.title}
-                        className="mx-auto h-28 self-center p-4 mix-blend-multiply sm:h-32 xl:hover:scale-105"
-                      />
+                      <div className="relative h-32 w-32 sm:inline-block sm:w-full">
+                        <Image
+                          src={product.image}
+                          alt={product.title}
+                          aria-label={product.title}
+                          fill
+                          className="mx-auto object-contain p-4 mix-blend-multiply xl:hover:scale-110"
+                        />
+                      </div>
                     </Link>
                   </td>
                   <td className="flex-[2] p-4 text-lg font-bold">
