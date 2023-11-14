@@ -1,11 +1,12 @@
+const BASE_URL = 'https://fakestoreapi.com';
 const CACHE_LIFETIME = 60 * 60;
 
-const fetchData = async (url: string) => {
+const fetchData = async (endpoint: string) => {
   let error = '';
   let data = null;
 
   try {
-    const res = await fetch(url, {
+    const res = await fetch(`${BASE_URL}/${endpoint}`, {
       next: { revalidate: CACHE_LIFETIME },
     });
     if (!res.ok) {
@@ -20,13 +21,13 @@ const fetchData = async (url: string) => {
 };
 
 export const fetchProducts = async () => {
-  return await fetchData('https://fakestoreapi.com/products');
+  return fetchData('products');
 };
 
 export const fetchProduct = async (productId: number) => {
-  return await fetchData(`https://fakestoreapi.com/products/${productId}`);
+  return fetchData(`products/${productId}`);
 };
 
 export const fetchCategories = async () => {
-  return await fetchData('https://fakestoreapi.com/products/categories');
+  return fetchData('products/categories');
 };
