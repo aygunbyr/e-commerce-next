@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Card from '@/components/card';
 import type { Product } from '@/types';
@@ -14,6 +14,12 @@ interface ProductListProps {
 const ProductList = ({ products, categories }: ProductListProps) => {
   const [filter, setFilter] = useState<string>('all');
   const [search, setSearch] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filter, search]);
 
   const filteredProducts = useMemo(() => {
     if (!products) return [];
@@ -32,8 +38,17 @@ const ProductList = ({ products, categories }: ProductListProps) => {
         )
       : filteredByCategory;
 
-    return filteredBySearchTerm;
-  }, [filter, products, search]);
+    const itemsPerPage = 5;
+    const totalPagesCalculated = Math.ceil(
+      filteredBySearchTerm.length / itemsPerPage,
+    );
+    setTotalPages(totalPagesCalculated);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedItems = filteredBySearchTerm.slice(startIndex, endIndex);
+
+    return paginatedItems;
+  }, [filter, products, search, currentPage]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,15 +58,15 @@ const ProductList = ({ products, categories }: ProductListProps) => {
     <>
       <form
         id="filter-form"
-        className="mt-1 flex flex-col items-center justify-between gap-4 rounded bg-zinc-900 p-2 text-lg sm:flex-row sm:gap-0"
+        className="mt-1 flex flex-col items-center justify-between gap-4 rounded-sm bg-zinc-900 p-2 text-lg text-zinc-100 sm:flex-row sm:gap-0"
         onSubmit={handleSubmit}
       >
         <div className="inline-flex items-center gap-2 self-start">
-          <label htmlFor="filter-select" className="w-20 min-w-fit text-white">
+          <label htmlFor="filter-select" className="w-20 min-w-fit">
             Filter by:
           </label>
           <select
-            className="rounded p-1 focus:outline-none"
+            className="p-1 text-zinc-900 focus:outline-none"
             id="filter-select"
             name="filter"
             onChange={(e) => setFilter(e.target.value)}
@@ -66,14 +81,11 @@ const ProductList = ({ products, categories }: ProductListProps) => {
           </select>
         </div>
         <div className="inline-flex items-center gap-2 self-start">
-          <label
-            htmlFor="search"
-            className="w-20 min-w-fit text-white sm:hidden"
-          >
+          <label htmlFor="search" className="w-20 min-w-fit sm:hidden">
             Search:
           </label>
           <input
-            className="max-w-fit rounded px-1 py-0.5 focus:outline-none"
+            className="max-w-fit px-1 py-0.5 text-zinc-900 placeholder:text-zinc-500 focus:outline-none"
             id="search"
             name="search"
             type="text"
@@ -84,6 +96,11 @@ const ProductList = ({ products, categories }: ProductListProps) => {
         </div>
       </form>
       <section id="products" className="flex flex-wrap">
+        {filteredProducts?.length === 0 && (
+          <p className="my-4 w-full text-center text-xl">
+            No product found matching these criteria
+          </p>
+        )}
         {filteredProducts?.map((product: Product) => {
           return (
             <div
@@ -95,6 +112,51 @@ const ProductList = ({ products, categories }: ProductListProps) => {
           );
         })}
       </section>
+      <div className="mb-4 mt-1 flex items-center justify-center rounded-sm bg-zinc-900 p-2 text-lg text-zinc-100 ">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+          className={`mr-4 rounded px-2 py-0.5 ${
+            currentPage === 1
+              ? 'border border-zinc-300 bg-transparent'
+              : 'bg-rose-700'
+          }`}
+        >
+          &lt;
+        </button>
+
+        {currentPage - 1 >= 1 && (
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            className="mr-4 rounded bg-rose-700 px-2 py-0.5"
+          >
+            {currentPage - 1}
+          </button>
+        )}
+
+        <p className="mr-4 font-bold">{currentPage}</p>
+
+        {currentPage + 1 <= totalPages && (
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            className="mr-4 rounded bg-rose-700 px-2 py-0.5"
+          >
+            {currentPage + 1}
+          </button>
+        )}
+
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          className={`mr-4 rounded px-2 py-0.5 ${
+            currentPage === totalPages
+              ? 'border border-zinc-300 bg-transparent'
+              : 'bg-rose-700'
+          }`}
+        >
+          &gt;
+        </button>
+      </div>
     </>
   );
 };
