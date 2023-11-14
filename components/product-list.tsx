@@ -12,8 +12,8 @@ interface ProductListProps {
 }
 
 const ProductList = ({ products, categories }: ProductListProps) => {
-  const [filter, setFilter] = useState('all');
-  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState<string>('all');
+  const [search, setSearch] = useState<string>('');
 
   const filteredProducts = useMemo(() => {
     if (!products) return [];
