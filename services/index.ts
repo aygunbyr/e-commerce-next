@@ -1,32 +1,32 @@
-export const fetchProducts = async () => {
-  const res = await fetch('https://fakestoreapi.com/products', {
-    next: { revalidate: 300 },
-  });
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
+const CACHE_LIFETIME = 60 * 60;
+
+const fetchData = async (url: string) => {
+  let error = '';
+  let data = null;
+
+  try {
+    const res = await fetch(url, {
+      next: { revalidate: CACHE_LIFETIME },
+    });
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    data = await res.json();
+  } catch (err) {
+    error = (err as Error).message;
   }
 
-  return res.json();
+  return { error, data };
+};
+
+export const fetchProducts = async () => {
+  return await fetchData('https://fakestoreapi.com/products');
 };
 
 export const fetchProduct = async (productId: number) => {
-  const res = await fetch(`https://fakestoreapi.com/products/${productId}`, {
-    next: { revalidate: 300 },
-  });
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
+  return await fetchData(`https://fakestoreapi.com/products/${productId}`);
 };
 
 export const fetchCategories = async () => {
-  const res = await fetch('https://fakestoreapi.com/products/categories', {
-    next: { revalidate: 300 },
-  });
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
+  return await fetchData('https://fakestoreapi.com/products/categories');
 };

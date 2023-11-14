@@ -4,7 +4,11 @@ import React from 'react';
 
 const ProductDetailPage = async (props: { params: { id: number } }) => {
   const productId = props.params.id;
-  const product = await fetchProduct(productId);
+  const { error, data: product } = await fetchProduct(productId);
+
+  if (error) {
+    return <p>Failed to fetch product data: {error}</p>;
+  }
 
   return <ProductDetail product={product} />;
 };
