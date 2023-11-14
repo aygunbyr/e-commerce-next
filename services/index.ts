@@ -1,13 +1,14 @@
 const BASE_URL = 'https://fakestoreapi.com';
 const CACHE_LIFETIME = 60 * 60;
 
-const fetchData = async (endpoint: string) => {
-  let error = '';
+const fetchData = async (endpoint: string, options: RequestInit = {}) => {
+  let error = null;
   let data = null;
 
   try {
     const res = await fetch(`${BASE_URL}/${endpoint}`, {
       next: { revalidate: CACHE_LIFETIME },
+      ...options,
     });
     if (!res.ok) {
       throw new Error('Failed to fetch data');
