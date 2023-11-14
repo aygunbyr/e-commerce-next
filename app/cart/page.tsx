@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   MinusIcon,
@@ -11,21 +12,20 @@ import {
 import { toast } from 'react-toastify';
 
 import styles from '@/styles/cart-page/styles.module.css';
-import { useCart } from '@/context/cart-context';
+import { CartActionType, useCart } from '@/context/cart-context';
 import type { ProductWithQuantity } from '@/types';
 import Loading from '@/components/loading';
-import Image from 'next/image';
 
 const CartPage = () => {
   const { state: cart, dispatch } = useCart();
 
   const removeItem = (product: ProductWithQuantity) => {
-    dispatch({ type: 'REMOVE_ITEM', payload: product });
+    dispatch({ type: CartActionType.REMOVE_ITEM, payload: product });
     toast.error(`${product.title} removed from cart 🛒`);
   };
 
   const checkout = () => {
-    dispatch({ type: 'EMPTY_CART' });
+    dispatch({ type: CartActionType.EMPTY_CART });
     toast.success('Your products have been shipped');
   };
 
@@ -101,7 +101,10 @@ const CartPage = () => {
                       aria-label={`Decrease quantity of product ${product.title}`}
                       className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
                       onClick={() =>
-                        dispatch({ type: 'DECREASE_QTY', payload: product })
+                        dispatch({
+                          type: CartActionType.DECREASE_QUANTITY,
+                          payload: product,
+                        })
                       }
                     >
                       <MinusIcon width={24} />
@@ -111,7 +114,10 @@ const CartPage = () => {
                       aria-label={`Increase quantity of product ${product.title}`}
                       className="rounded-sm bg-green-700 p-0.5 text-white shadow shadow-green-700 transition-all duration-200 xl:hover:bg-green-600 xl:hover:shadow-green-600"
                       onClick={() =>
-                        dispatch({ type: 'INCREASE_QTY', payload: product })
+                        dispatch({
+                          type: CartActionType.INCREASE_QUANTITY,
+                          payload: product,
+                        })
                       }
                     >
                       <PlusIcon width={24} />

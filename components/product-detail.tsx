@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 import type { Product } from '@/types';
 import styles from '@/styles/product-detail/styles.module.css';
-import { useCart } from '@/context/cart-context';
+import { CartActionType, useCart } from '@/context/cart-context';
 
 const ProductDetail = ({ product }: { product: Product }) => {
   const { state, dispatch } = useCart();
@@ -14,7 +14,9 @@ const ProductDetail = ({ product }: { product: Product }) => {
   const itemInCart = state.products.some((item) => item.id === product?.id);
 
   const toggleCartAction = () => {
-    const actionType = itemInCart ? 'REMOVE_ITEM' : 'ADD_ITEM';
+    const actionType = itemInCart
+      ? CartActionType.REMOVE_ITEM
+      : CartActionType.ADD_ITEM;
     itemInCart
       ? toast.error(`${product?.title} removed from cart 🛒`)
       : toast.success(`${product?.title} added to cart 🛒`);

@@ -1,15 +1,15 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/solid';
 import { toast } from 'react-toastify';
 
-import { useCart } from '@/context/cart-context';
+import { CartActionType, useCart } from '@/context/cart-context';
 import styles from '@/styles/card/styles.module.css';
 import { Product } from '@/types';
-import Image from 'next/image';
 
 interface CardProps {
   product: Product;
@@ -21,7 +21,9 @@ const Card = ({ product }: CardProps) => {
   const itemInCart = state.products?.some((item) => item.id === product.id);
 
   const toggleCartAction = () => {
-    const actionType = itemInCart ? 'REMOVE_ITEM' : 'ADD_ITEM';
+    const actionType = itemInCart
+      ? CartActionType.REMOVE_ITEM
+      : CartActionType.ADD_ITEM;
     itemInCart
       ? toast.error(`${title} removed from cart 🛒`)
       : toast.success(`${title} added to cart 🛒`);

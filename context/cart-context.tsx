@@ -14,18 +14,13 @@ const initialState: CartContextState = {
   products: [],
 };
 
-interface CardContextProviderProps {
-  children: React.ReactNode;
-}
-
-enum CartActionType {
+export enum CartActionType {
   ADD_ITEM = 'ADD_ITEM',
   REMOVE_ITEM = 'REMOVE_ITEM',
   EMPTY_CART = 'EMPTY_CART',
-  INCREASE_QTY = 'INCREASE_QTY',
-  DECREASE_QTY = 'DECREASE_QTY',
-  SET_CART = 'SET_CART',
-  SET_LOADING = 'SET_LOADING',
+  INCREASE_QUANTITY = 'INCREASE_QUANTITY',
+  DECREASE_QUANTITY = 'DECREASE_QUANTITY',
+  LOAD_CART = 'LOAD_CART',
 }
 
 type CartAction = {
@@ -55,7 +50,7 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
         products: [],
       };
 
-    case CartActionType.INCREASE_QTY:
+    case CartActionType.INCREASE_QUANTITY:
       return {
         ...state,
         products: state.products.map((item) => {
@@ -66,7 +61,7 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
         }),
       };
 
-    case CartActionType.DECREASE_QTY:
+    case CartActionType.DECREASE_QUANTITY:
       return {
         ...state,
         products: state.products
@@ -79,16 +74,11 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
           .filter((item) => item.quantity > 0),
       };
 
-    case CartActionType.SET_CART:
+    case CartActionType.LOAD_CART:
       return {
         ...state,
-        ...action.payload,
-      };
-
-    case CartActionType.SET_LOADING:
-      return {
-        ...state,
-        loading: action.payload,
+        products: [...action.payload],
+        loading: false,
       };
 
     default:
@@ -101,22 +91,25 @@ const CartContext = createContext<{
   dispatch: React.Dispatch<any>;
 }>({ state: initialState, dispatch: () => null });
 
-export const CartContextProvider = ({ children }: CardContextProviderProps) => {
+export const CartContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
       dispatch({
-        type: CartActionType.SET_CART,
+        type: CartActionType.LOAD_CART,
         payload: JSON.parse(storedCart),
       });
     }
-    dispatch({ type: CartActionType.SET_LOADING, payload: false });
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(state));
+    localStorage.setItem('cart', JSON.stringify(state.products));
   }, [state]);
 
   return (
