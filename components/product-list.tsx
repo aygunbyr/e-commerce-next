@@ -116,13 +116,13 @@ const ProductList = ({ products, categories }: ProductListProps) => {
         <button
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}
-          className={`mr-4 rounded px-2 py-0.5 ${
+          className={`mr-4 rounded px-3 py-0.5 ${
             currentPage === 1
               ? 'border border-zinc-300 bg-transparent'
               : 'bg-rose-700'
           }`}
         >
-          &lt;
+          &larr;
         </button>
 
         {currentPage - 1 >= 1 && (
@@ -148,13 +148,13 @@ const ProductList = ({ products, categories }: ProductListProps) => {
         <button
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage((prev) => prev + 1)}
-          className={`mr-4 rounded px-2 py-0.5 ${
+          className={`mr-4 rounded px-3 py-0.5 ${
             currentPage === totalPages
               ? 'border border-zinc-300 bg-transparent'
               : 'bg-rose-700'
           }`}
         >
-          &gt;
+          &rarr;
         </button>
       </div>
     </>
