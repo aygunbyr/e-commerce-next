@@ -3,7 +3,7 @@ import Loading from '@/components/loading';
 import type { Product } from '@/types';
 
 interface ProductListProps {
-  isLoading: string;
+  isLoading: boolean;
   paginatedProducts: Product[];
 }
 
@@ -21,7 +21,7 @@ const ProductsList = ({ isLoading, paginatedProducts }: ProductListProps) => {
             </div>
           );
         })
-      ) : isLoading === 'loading' ? (
+      ) : isLoading ? (
         <Loading />
       ) : (
         <p className="my-4 w-full text-center text-xl">
