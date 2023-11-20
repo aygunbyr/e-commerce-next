@@ -5,23 +5,22 @@ import { useEffect, useMemo, useState } from 'react';
 import Card from '@/components/card';
 import type { Product } from '@/types';
 import { toCapitalCase } from '@/utils';
+import usePagination from '@/hooks/usePagination';
 
 interface ProductListProps {
   products: Product[];
   categories: string[];
 }
 
+const ITEMS_PER_PAGE = 5;
+
 const ProductList = ({ products, categories }: ProductListProps) => {
   const [filter, setFilter] = useState<string>('all');
   const [search, setSearch] = useState<string>('');
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filter, search]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const filteredProducts = useMemo(() => {
+    setIsLoading(true);
     if (!products) return [];
     const filteredByCategory =
       filter === 'all'
@@ -38,17 +37,30 @@ const ProductList = ({ products, categories }: ProductListProps) => {
         )
       : filteredByCategory;
 
-    const itemsPerPage = 5;
-    const totalPagesCalculated = Math.ceil(
-      filteredBySearchTerm.length / itemsPerPage,
-    );
-    setTotalPages(totalPagesCalculated);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedItems = filteredBySearchTerm.slice(startIndex, endIndex);
+    setIsLoading(false);
 
-    return paginatedItems;
-  }, [filter, products, search, currentPage]);
+    return filteredBySearchTerm;
+  }, [filter, products, search]);
+
+  const {
+    currentPage,
+    numberofPages,
+    gotoPreviousPage,
+    gotoNextPage,
+    gotoFirstPage,
+    hasPreviousPage,
+    hasNextPage,
+    startIndex,
+    endIndex,
+  } = usePagination(filteredProducts.length, ITEMS_PER_PAGE);
+
+  const paginatedProducts = useMemo(() => {
+    return filteredProducts.slice(startIndex, endIndex);
+  }, [filteredProducts, startIndex, endIndex]);
+
+  useEffect(() => {
+    gotoFirstPage();
+  }, [filter, search, gotoFirstPage]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,28 +108,29 @@ const ProductList = ({ products, categories }: ProductListProps) => {
         </div>
       </form>
       <section id="products" className="flex flex-wrap">
-        {filteredProducts?.length === 0 && (
+        {paginatedProducts?.length > 0 ? (
+          paginatedProducts?.map((product: Product) => {
+            return (
+              <div
+                key={product.id}
+                className="basis-full p-2 sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+              >
+                <Card product={product} />
+              </div>
+            );
+          })
+        ) : (
           <p className="my-4 w-full text-center text-xl">
             No product found matching these criteria
           </p>
         )}
-        {filteredProducts?.map((product: Product) => {
-          return (
-            <div
-              key={product.id}
-              className="basis-full p-2 sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
-            >
-              <Card product={product} />
-            </div>
-          );
-        })}
       </section>
       <div className="mb-4 mt-1 flex items-center justify-center rounded-sm bg-zinc-900 p-2 text-lg text-zinc-100 ">
         <button
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((prev) => prev - 1)}
+          disabled={!hasPreviousPage}
+          onClick={() => gotoPreviousPage()}
           className={`mr-4 rounded px-3 py-0.5 ${
-            currentPage === 1
+            !hasPreviousPage
               ? 'border border-zinc-300 bg-transparent'
               : 'bg-rose-700'
           }`}
@@ -127,7 +140,7 @@ const ProductList = ({ products, categories }: ProductListProps) => {
 
         {currentPage - 1 >= 1 && (
           <button
-            onClick={() => setCurrentPage(currentPage - 1)}
+            onClick={() => gotoPreviousPage()}
             className="mr-4 rounded bg-rose-700 px-2 py-0.5"
           >
             {currentPage - 1}
@@ -136,9 +149,9 @@ const ProductList = ({ products, categories }: ProductListProps) => {
 
         <p className="mr-4 font-bold">{currentPage}</p>
 
-        {currentPage + 1 <= totalPages && (
+        {currentPage + 1 <= numberofPages && (
           <button
-            onClick={() => setCurrentPage(currentPage + 1)}
+            onClick={() => gotoNextPage()}
             className="mr-4 rounded bg-rose-700 px-2 py-0.5"
           >
             {currentPage + 1}
@@ -146,10 +159,10 @@ const ProductList = ({ products, categories }: ProductListProps) => {
         )}
 
         <button
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={!hasNextPage}
+          onClick={() => gotoNextPage()}
           className={`mr-4 rounded px-3 py-0.5 ${
-            currentPage === totalPages
+            !hasNextPage
               ? 'border border-zinc-300 bg-transparent'
               : 'bg-rose-700'
           }`}
