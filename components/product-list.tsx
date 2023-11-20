@@ -6,6 +6,7 @@ import Card from '@/components/card';
 import type { Product } from '@/types';
 import { toCapitalCase } from '@/utils';
 import usePagination from '@/hooks/usePagination';
+import Loading from './loading';
 
 interface ProductListProps {
   products: Product[];
@@ -17,10 +18,11 @@ const ITEMS_PER_PAGE = 5;
 const ProductList = ({ products, categories }: ProductListProps) => {
   const [filter, setFilter] = useState<string>('all');
   const [search, setSearch] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<string>('not-loading');
+  const [paginatedProducts, setPaginatedProducts] = useState<Product[]>([]);
 
   const filteredProducts = useMemo(() => {
-    setIsLoading(true);
+    setIsLoading('loading');
     if (!products) return [];
     const filteredByCategory =
       filter === 'all'
@@ -37,8 +39,6 @@ const ProductList = ({ products, categories }: ProductListProps) => {
         )
       : filteredByCategory;
 
-    setIsLoading(false);
-
     return filteredBySearchTerm;
   }, [filter, products, search]);
 
@@ -54,8 +54,9 @@ const ProductList = ({ products, categories }: ProductListProps) => {
     endIndex,
   } = usePagination(filteredProducts.length, ITEMS_PER_PAGE);
 
-  const paginatedProducts = useMemo(() => {
-    return filteredProducts.slice(startIndex, endIndex);
+  useEffect(() => {
+    setPaginatedProducts(filteredProducts.slice(startIndex, endIndex));
+    setIsLoading('not-loading');
   }, [filteredProducts, startIndex, endIndex]);
 
   useEffect(() => {
@@ -119,6 +120,8 @@ const ProductList = ({ products, categories }: ProductListProps) => {
               </div>
             );
           })
+        ) : isLoading === 'loading' ? (
+          <Loading height="20vh" />
         ) : (
           <p className="my-4 w-full text-center text-xl">
             No product found matching these criteria
