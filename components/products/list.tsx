@@ -22,7 +22,7 @@ const ProductsList = ({ isLoading, paginatedProducts }: ProductListProps) => {
           );
         })
       ) : isLoading === 'loading' ? (
-        <Loading height="20vh" />
+        <Loading />
       ) : (
         <p className="my-4 w-full text-center text-xl">
           No product found matching these criteria

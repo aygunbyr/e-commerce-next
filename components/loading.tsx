@@ -1,10 +1,6 @@
-interface LoadingProps {
-  height?: string;
-}
-
-const Loading = ({ height = '80vh' }: LoadingProps) => {
+const Loading = () => {
   return (
-    <div className={`flex h-[${height}] w-full items-center justify-center`}>
+    <div className={`flex h-[20vh] w-full items-center justify-center`}>
       <svg
         aria-hidden="true"
         className="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
