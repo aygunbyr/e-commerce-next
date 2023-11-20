@@ -18,7 +18,6 @@ const ITEMS_PER_PAGE = 5;
 const Products = ({ products, categories }: ProductsProps) => {
   const [filter, setFilter] = useState<string>('all');
   const [searchText, setSearchText] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [paginatedProducts, setPaginatedProducts] = useState<Product[]>([]);
 
   const filteredProducts = useMemo<Product[]>(() => {
@@ -61,14 +60,6 @@ const Products = ({ products, categories }: ProductsProps) => {
     gotoFirstPage();
   }, [filter, searchText, gotoFirstPage]);
 
-  useEffect(() => {
-    const loadingInterval = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    () => clearInterval(loadingInterval);
-  }, []);
-
   return (
     <>
       <ProductsForm
@@ -78,10 +69,7 @@ const Products = ({ products, categories }: ProductsProps) => {
         searchText={searchText}
         setSearchText={setSearchText}
       />
-      <ProductsList
-        isLoading={isLoading}
-        paginatedProducts={paginatedProducts}
-      />
+      <ProductsList paginatedProducts={paginatedProducts} />
       <ProductsPagination
         currentPage={currentPage}
         numberofPages={numberofPages}

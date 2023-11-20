@@ -1,13 +1,11 @@
 import Card from '@/components/card';
-import Loading from '@/components/loading';
 import type { Product } from '@/types';
 
 interface ProductListProps {
-  isLoading: boolean;
   paginatedProducts: Product[];
 }
 
-const ProductsList = ({ isLoading, paginatedProducts }: ProductListProps) => {
+const ProductsList = ({ paginatedProducts }: ProductListProps) => {
   return (
     <section id="products" className="flex flex-wrap">
       {paginatedProducts?.length > 0 ? (
@@ -21,8 +19,6 @@ const ProductsList = ({ isLoading, paginatedProducts }: ProductListProps) => {
             </div>
           );
         })
-      ) : isLoading ? (
-        <Loading />
       ) : (
         <p className="my-4 w-full text-center text-xl">
           No product found matching these criteria
