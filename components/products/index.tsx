@@ -18,11 +18,10 @@ const ITEMS_PER_PAGE = 5;
 const Products = ({ products, categories }: ProductsProps) => {
   const [filter, setFilter] = useState<string>('all');
   const [searchText, setSearchText] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<string>('not-loading');
+  const [isLoading, setIsLoading] = useState<string>('loading');
   const [paginatedProducts, setPaginatedProducts] = useState<Product[]>([]);
 
-  const filteredProducts = useMemo(() => {
-    setIsLoading('loading');
+  const filteredProducts = useMemo<Product[]>(() => {
     if (!products) return [];
     const filteredByCategory =
       filter === 'all'
@@ -56,12 +55,19 @@ const Products = ({ products, categories }: ProductsProps) => {
 
   useEffect(() => {
     setPaginatedProducts(filteredProducts.slice(startIndex, endIndex));
-    setIsLoading('not-loading');
   }, [filteredProducts, startIndex, endIndex]);
 
   useEffect(() => {
     gotoFirstPage();
   }, [filter, searchText, gotoFirstPage]);
+
+  useEffect(() => {
+    const loadingInterval = setTimeout(() => {
+      setIsLoading('not-loading');
+    }, 1000);
+
+    () => clearInterval(loadingInterval);
+  }, []);
 
   return (
     <>
