@@ -1,4 +1,4 @@
-import ProductList from '@/components/product-list';
+import Products from '@/components/products';
 import Slider from '@/components/slider';
 import { fetchCategories, fetchProducts } from '@/services';
 
@@ -19,7 +19,7 @@ export default async function Home() {
   return (
     <>
       <Slider />
-      <ProductList products={products} categories={categories} />
+      <Products products={products} categories={categories} />
     </>
   );
 }

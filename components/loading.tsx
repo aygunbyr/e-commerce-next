@@ -1,6 +1,6 @@
-type LoadingProps = {
+interface LoadingProps {
   height?: string;
-};
+}
 
 const Loading = ({ height = '80vh' }: LoadingProps) => {
   return (
