@@ -13,7 +13,7 @@ interface ProductsProps {
   categories: string[];
 }
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 10;
 
 const Products = ({ products, categories }: ProductsProps) => {
   const [filter, setFilter] = useState<string>('all');
