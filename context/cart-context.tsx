@@ -100,12 +100,10 @@ export const CartContextProvider = ({
 
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      dispatch({
-        type: CartActionType.LOAD_CART,
-        payload: JSON.parse(storedCart),
-      });
-    }
+    dispatch({
+      type: CartActionType.LOAD_CART,
+      payload: storedCart ? JSON.parse(storedCart) : [],
+    });
   }, []);
 
   useEffect(() => {
