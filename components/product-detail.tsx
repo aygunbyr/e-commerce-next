@@ -24,7 +24,7 @@ const ProductDetail = ({ product }: { product: Product }) => {
   };
 
   return (
-    <section id="page-product-detail" className="max-w-full">
+    <section id="page-product-detail">
       {product && (
         <>
           <div className="mt-10 flex flex-col items-start gap-10 sm:flex-row">

@@ -54,8 +54,8 @@ const CartPage = () => {
 
       {cart.products.length > 0 && (
         <>
-          <table className="mb-4 w-full overflow-hidden rounded-md border border-zinc-500 text-left md:shadow-md md:shadow-zinc-500">
-            <thead className="bg-zinc-900 text-zinc-100">
+          <table className="border-primary md:shadow-primary mb-4 w-full overflow-hidden rounded-md border text-left md:shadow-md">
+            <thead className="text-primary-light bg-primary-dark">
               <tr className="flex">
                 <th className="flex-1 p-4 text-center max-md:hidden">Photo</th>
                 <th className="flex-[2] p-4 text-start max-md:hidden">
@@ -126,7 +126,7 @@ const CartPage = () => {
                   <td className="flex-1 p-4">
                     <button
                       aria-label={`Remove product from cart`}
-                      className="min-w-content inline-flex w-full items-center justify-center gap-2 rounded bg-zinc-900 p-2 text-white transition-colors duration-200 xl:hover:bg-rose-900"
+                      className="min-w-content xl:hover:bg-secondary bg-primary-dark inline-flex w-full items-center justify-center gap-2 rounded p-2 text-white transition-colors duration-200"
                       onClick={() => removeItem(product)}
                     >
                       <TrashIcon width={24} aria-hidden="true" />

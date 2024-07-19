@@ -22,16 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="flex min-h-screen flex-col bg-gray-50 font-inter">
-          <ClientProvider>
-            <Header />
-            <main className="container mb-4 flex-1 px-1 text-gray-900 max-xl:w-96">
-              {children}
-            </main>
-            <Footer />
-          </ClientProvider>
-        </div>
+      <body className={`${inter.className} text-primary-dark bg-slate-50`}>
+        <ClientProvider>
+          <Header />
+          <main className="container mb-4 max-xl:w-96">{children}</main>
+          <Footer />
+        </ClientProvider>
       </body>
     </html>
   );

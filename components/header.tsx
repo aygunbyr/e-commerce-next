@@ -12,7 +12,7 @@ const Header = () => {
   const itemCount = state.products.length;
 
   return (
-    <header className="sticky top-0 z-10 bg-zinc-900 bg-opacity-95 font-inter text-rose-500 shadow-sm shadow-zinc-900">
+    <header className="text-secondary bg-primary-dark shadow-primary-dark sticky top-0 z-10 bg-opacity-95 shadow-sm">
       <div className="container max-xl:w-96">
         <div className="flex flex-col items-center space-x-6 px-1 py-1 sm:flex-row">
           <Link

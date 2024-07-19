@@ -3,5 +3,5 @@
 }
 
 .card-button {
-  @apply absolute right-2 top-2 items-center justify-center rounded-full border bg-zinc-900 p-1.5 text-zinc-100 transition-all duration-200 xl:hidden xl:hover:bg-white xl:hover:text-zinc-900 xl:hover:shadow-md xl:hover:shadow-zinc-900;
+  @apply bg-primary-dark xl:hover:text-primary-dark xl:hover:shadow-primary-dark text-primary-light absolute right-2 top-2 items-center justify-center rounded-full border p-1.5 transition-all duration-200 xl:hidden xl:hover:bg-white xl:hover:shadow-md;
 }
