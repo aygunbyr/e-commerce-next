@@ -79,13 +79,13 @@ const CartPage = () => {
                       aria-label={product.title}
                       href={`/product/${product.id}`}
                     >
-                      <div className="relative h-32 w-32 sm:inline-block sm:w-full">
+                      <div className="relative h-32 w-32">
                         <Image
                           src={product.image}
                           alt={product.title}
                           aria-label={product.title}
                           fill
-                          className="mx-auto object-contain p-4 mix-blend-multiply xl:hover:scale-110"
+                          className="mx-auto object-contain p-4 mix-blend-multiply transition-all duration-200 xl:hover:scale-125"
                         />
                       </div>
                     </Link>
