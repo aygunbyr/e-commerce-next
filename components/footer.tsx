@@ -33,18 +33,26 @@ const Footer = () => {
             <a href="#">Women&apos;s Clothing</a>
           </li>
         </ul>
-        <ul className="flex gap-2">
+        <ul className="flex gap-3">
           <li>
-            <BsFacebook size={24} />
+            <a href="#">
+              <BsFacebook size={24} />
+            </a>
           </li>
           <li>
-            <BsInstagram size={24} />
+            <a href="#">
+              <BsInstagram size={24} />
+            </a>
           </li>
           <li>
-            <BsTwitter size={24} />
+            <a href="#">
+              <BsTwitter size={24} />
+            </a>
           </li>
           <li>
-            <BsLinkedin size={24} />
+            <a href="#">
+              <BsLinkedin size={24} />
+            </a>
           </li>
         </ul>
       </nav>
