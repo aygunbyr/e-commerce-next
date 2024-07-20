@@ -67,9 +67,9 @@ const CartPage = () => {
               {cart.products.map((product, index) => (
                 <tr
                   key={index}
-                  className="flex items-center border border-primary-light max-md:flex-col max-md:gap-2 xl:hover:bg-primary-light"
+                  className="flex items-center border border-primary-light max-md:flex-col max-md:gap-2 max-md:py-5 xl:hover:bg-primary-light"
                 >
-                  <td className="flex-1 p-4">
+                  <td className="flex-1 sm:p-4">
                     <Link
                       aria-label={product.title}
                       href={`/product/${product.id}`}
@@ -85,13 +85,13 @@ const CartPage = () => {
                       </div>
                     </Link>
                   </td>
-                  <td className="flex-[2] p-4 text-lg font-bold">
+                  <td className="flex-[2] text-lg font-bold sm:p-4">
                     {product.title}
                   </td>
-                  <td className="flex-1 p-4 text-center text-lg font-bold">
+                  <td className="flex-1 text-center text-lg font-bold sm:p-4">
                     {product.price} ₺
                   </td>
-                  <td className="inline-flex flex-1 items-center justify-center gap-4 p-4 text-center text-lg font-bold">
+                  <td className="inline-flex flex-1 items-center justify-center gap-4 text-center text-lg font-bold sm:p-4">
                     <button
                       aria-label={`Decrease quantity of product ${product.title}`}
                       className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
@@ -118,7 +118,7 @@ const CartPage = () => {
                       <PlusIcon width={24} />
                     </button>
                   </td>
-                  <td className="flex-1 p-4">
+                  <td className="flex-1 sm:p-4">
                     <button
                       aria-label={`Remove product from cart`}
                       className="min-w-content inline-flex w-full items-center justify-center gap-2 rounded bg-primary-dark p-2 text-white transition-colors duration-200 xl:hover:bg-secondary"
