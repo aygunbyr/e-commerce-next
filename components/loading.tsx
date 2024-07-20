@@ -3,7 +3,7 @@ const Loading = () => {
     <div className={`flex h-[20vh] w-full items-center justify-center`}>
       <svg
         aria-hidden="true"
-        className="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+        className="h-8 w-8 animate-spin fill-primary-dark text-primary-light dark:text-primary"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

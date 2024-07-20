@@ -24,7 +24,7 @@ const CartPage = () => {
     toast.error(`${product.title} removed from cart 🛒`);
   };
 
-  const checkout = () => {
+  const orderItems = () => {
     dispatch({ type: CartActionType.EMPTY_CART });
     toast.success('Your products have been shipped');
   };
@@ -48,24 +48,20 @@ const CartPage = () => {
       <h2 className="mb-4 text-3xl font-semibold">My Cart</h2>
       <h3 className="mb-4 text-xl">
         {cart.products.length > 0
-          ? `You have ${cart.products.length} product(s) in your cart`
-          : `Your cart is empty.`}
+          ? `${cart.products.length} product(s) in cart.`
+          : 'Cart is empty.'}
       </h3>
 
       {cart?.products?.length > 0 && (
         <>
           <table className="mb-4 w-full overflow-hidden overflow-y-hidden rounded-lg border border-primary-dark text-left ">
-            <thead className="bg-primary-dark text-primary-light">
-              <tr className="flex">
-                <th className="flex-1 p-4 text-center max-md:hidden">Photo</th>
-                <th className="flex-[2] p-4 text-start max-md:hidden">
-                  Product
-                </th>
-                <th className="flex-1 p-4 text-center max-md:hidden">Price</th>
-                <th className="flex-1 p-4 text-center max-md:hidden">
-                  Quantity
-                </th>
-                <th className="flex-1 p-4 text-center max-md:hidden">Action</th>
+            <thead className="bg-primary-dark text-primary-light max-md:hidden">
+              <tr className="flex text-center">
+                <th className="flex-1 p-4">Photo</th>
+                <th className="flex-[2] p-4 text-start">Product</th>
+                <th className="flex-1 p-4">Price</th>
+                <th className="flex-1 p-4">Quantity</th>
+                <th className="flex-1 p-4">Action</th>
               </tr>
             </thead>
             <tbody className="flex flex-col">
@@ -137,26 +133,17 @@ const CartPage = () => {
               ))}
             </tbody>
           </table>
-          {/* <ul>
-            {cart?.products?.map((product, key) => (
-              <li key={key}>
-                <Link href={`/product/${product.id}`}>{product.title}</Link>
-              </li>
-            ))}
-          </ul> */}
-          <div className="flex flex-wrap items-start justify-between gap-5 rounded bg-gray-50 p-4 align-baseline max-xl:flex-wrap-reverse max-xl:justify-center max-xl:gap-10">
+          <div className="my-5 px-5">
+            <p className="text-xl font-bold">Total:</p>
+            <h2 className="text-3xl font-bold">{totalPrice} ₺</h2>
             <button
-              aria-label="Checkout"
+              aria-label="Order items"
               className={styles['empty-cart-button']}
-              onClick={() => checkout()}
+              onClick={() => orderItems()}
             >
-              <ShoppingBagIcon width={32} aria-hidden="true" />
-              <span className="text-lg text-primary-light">Checkout</span>
+              <ShoppingBagIcon width={24} aria-hidden="true" />
+              <span className="text-lg">Order Products</span>
             </button>
-            <div className="flex w-full flex-col items-center justify-center sm:w-1/3 md:items-end">
-              <p className="text-end text-xl font-bold">Total:</p>
-              <h2 className="text-end text-3xl font-bold">{totalPrice} ₺</h2>
-            </div>
           </div>
         </>
       )}
