@@ -44,7 +44,7 @@ const CartPage = () => {
   }
 
   return (
-    <section id="page-cart" className="mt-8 overflow-auto">
+    <section id="page-cart" className="mt-8">
       <h2 className="mb-4 text-3xl font-semibold">My Cart</h2>
       <h3 className="mb-4 text-xl">
         {cart.products.length > 0
@@ -54,7 +54,7 @@ const CartPage = () => {
 
       {cart?.products?.length > 0 && (
         <>
-          {/* <table className="mb-4 w-full overflow-hidden rounded-md border border-primary text-left md:shadow-md md:shadow-primary">
+          <table className="mb-4 w-full overflow-hidden overflow-y-hidden rounded-lg border border-primary-dark text-left ">
             <thead className="bg-primary-dark text-primary-light">
               <tr className="flex">
                 <th className="flex-1 p-4 text-center max-md:hidden">Photo</th>
@@ -72,7 +72,7 @@ const CartPage = () => {
               {cart.products.map((product, index) => (
                 <tr
                   key={index}
-                  className="flex items-center border border-b-gray-300 max-md:flex-col max-md:gap-2 xl:hover:bg-gray-100"
+                  className="flex items-center border border-primary-light max-md:flex-col max-md:gap-2 xl:hover:bg-primary-light"
                 >
                   <td className="flex-1 p-4">
                     <Link
@@ -136,14 +136,14 @@ const CartPage = () => {
                 </tr>
               ))}
             </tbody>
-          </table> */}
-          <ul>
+          </table>
+          {/* <ul>
             {cart?.products?.map((product, key) => (
               <li key={key}>
                 <Link href={`/product/${product.id}`}>{product.title}</Link>
               </li>
             ))}
-          </ul>
+          </ul> */}
           <div className="flex flex-wrap items-start justify-between gap-5 rounded bg-gray-50 p-4 align-baseline max-xl:flex-wrap-reverse max-xl:justify-center max-xl:gap-10">
             <button
               aria-label="Checkout"

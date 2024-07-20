@@ -1,6 +1,5 @@
 import Hero from '@/components/hero';
 import Products from '@/components/products';
-import Slider from '@/components/slider';
 import { fetchCategories, fetchProducts } from '@/services';
 
 export default async function Home() {
@@ -18,10 +17,9 @@ export default async function Home() {
   }
 
   return (
-    <div className="overflow-auto">
-      {/* <Slider /> */}
+    <>
       <Hero />
       <Products products={products} categories={categories} />
-    </div>
+    </>
   );
 }

@@ -10,7 +10,11 @@ const ProductDetailPage = async (props: { params: { id: number } }) => {
     return <p>Failed to fetch product data: {error}</p>;
   }
 
-  return <ProductDetail product={product} />;
+  return (
+    <>
+      <ProductDetail product={product} />
+    </>
+  );
 };
 
 export default ProductDetailPage;

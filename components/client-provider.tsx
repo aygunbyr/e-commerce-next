@@ -9,7 +9,7 @@ const ClientProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <CartContextProvider>
       {children}
-      <ToastContainer position="top-center" theme="dark" hideProgressBar />
+      <ToastContainer position="top-center" theme="light" hideProgressBar />
     </CartContextProvider>
   );
 };

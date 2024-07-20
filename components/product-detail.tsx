@@ -24,46 +24,43 @@ const ProductDetail = ({ product }: { product: Product }) => {
   };
 
   return (
-    <section id="page-product-detail">
+    <section id="page-product-detail" className="flex w-full">
       {product && (
-        <>
-          <div className="mt-10 flex flex-col items-start gap-10 sm:flex-row">
-            <div className="relative h-80 w-80 max-w-full p-4">
-              <Image
-                src={product.image}
-                alt="product"
-                className="object-contain mix-blend-multiply"
-                fill
-              />
-            </div>
-            <div className="flex max-w-full flex-1 flex-col gap-5">
-              <h2 className="text-3xl">{product.title}</h2>
-              <p className="text-2xl font-bold">{product.price} ₺</p>
-              <p>{product.description}</p>
-              <p>Category: {product.category}</p>
-              <p>
-                Rating: <span className="font-bold">{product.rating.rate}</span>{' '}
-                ({product.rating.count} votes)
-              </p>
-              <button
-                aria-label="Go to cart page"
-                className={styles['cart-button']}
-                onClick={toggleCartAction}
-              >
-                {itemInCart ? (
-                  <>
-                    <TrashIcon aria-hidden="true" width={24} /> Remove from Cart
-                  </>
-                ) : (
-                  <>
-                    <ShoppingCartIcon aria-hidden="true" width={24} /> Add to
-                    Cart
-                  </>
-                )}
-              </button>
-            </div>
+        <div className="mt-10 flex flex-1 flex-col items-start gap-10 sm:flex-row">
+          <div className="relative h-80 w-80 p-4">
+            <Image
+              src={product.image}
+              alt="product"
+              className="object-contain mix-blend-multiply"
+              fill
+            />
           </div>
-        </>
+          <div className="flex flex-1 flex-col gap-5">
+            <h2 className="text-3xl">{product.title}</h2>
+            <p className="text-2xl font-bold">{product.price} ₺</p>
+            <p>{product.description}</p>
+            <p>Category: {product.category}</p>
+            <p>
+              Rating: <span className="font-bold">{product.rating.rate}</span> (
+              {product.rating.count} votes)
+            </p>
+            <button
+              aria-label="Go to cart page"
+              className={styles['cart-button']}
+              onClick={toggleCartAction}
+            >
+              {itemInCart ? (
+                <>
+                  <TrashIcon aria-hidden="true" width={24} /> Remove from Cart
+                </>
+              ) : (
+                <>
+                  <ShoppingCartIcon aria-hidden="true" width={24} /> Add to Cart
+                </>
+              )}
+            </button>
+          </div>
+        </div>
       )}
     </section>
   );

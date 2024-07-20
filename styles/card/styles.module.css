@@ -1,7 +1,7 @@
 .card {
-  @apply relative flex min-h-[270px] w-full flex-col gap-1 rounded border border-gray-300 bg-gray-100 p-2 shadow-sm transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-gray-500;
+  @apply relative flex min-h-[270px] w-full flex-col gap-1 rounded border border-primary-light bg-primary-light p-2 shadow-sm transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-primary;
 }
 
 .card-button {
-  @apply bg-primary-dark xl:hover:text-primary-dark xl:hover:shadow-primary-dark text-primary-light absolute right-2 top-2 items-center justify-center rounded-full border p-1.5 transition-all duration-200 xl:hidden xl:hover:bg-white xl:hover:shadow-md;
+  @apply absolute right-2 top-2 items-center justify-center rounded-full border bg-primary-dark p-1.5 text-primary-light transition-all duration-200 xl:hidden xl:hover:bg-white xl:hover:text-primary-dark xl:hover:shadow-md xl:hover:shadow-primary-dark;
 }
