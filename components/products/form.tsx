@@ -23,7 +23,7 @@ const ProductsForm = ({
   return (
     <form
       id="filter-form"
-      className="bg-primary-light text-primary-dark mt-1 flex flex-col items-center justify-between gap-4 rounded-sm p-2 text-lg sm:flex-row sm:gap-0"
+      className="mt-1 flex flex-col items-center justify-between gap-4 rounded-sm bg-primary-light p-2 text-lg text-primary-dark sm:flex-row sm:gap-0"
       onSubmit={handleSubmit}
     >
       <div className="inline-flex items-center gap-2 self-start">
@@ -31,7 +31,7 @@ const ProductsForm = ({
           Filter by:
         </label>
         <select
-          className="border-primary-light text-primary-dark rounded-sm border p-1 focus:outline-none"
+          className="rounded-sm border p-1 text-primary-dark focus:outline-none"
           id="filter-select"
           name="filter"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -52,7 +52,7 @@ const ProductsForm = ({
           Search:
         </label>
         <input
-          className="border-primary-light text-primary-dark placeholder:text-primary rounded-sm border px-1 py-0.5 focus:outline-none"
+          className="rounded-sm border px-1 py-0.5 text-primary-dark placeholder:text-primary focus:outline-none"
           id="search"
           name="search"
           type="text"
