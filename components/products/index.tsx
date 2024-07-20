@@ -7,6 +7,7 @@ import usePagination from '@/hooks/usePagination';
 import ProductsForm from './form';
 import ProductsList from './list';
 import ProductsPagination from './pagination';
+import Link from 'next/link';
 
 interface ProductsProps {
   products: Product[];
@@ -69,7 +70,14 @@ const Products = ({ products, categories }: ProductsProps) => {
         searchText={searchText}
         setSearchText={setSearchText}
       />
-      <ProductsList paginatedProducts={paginatedProducts} />
+      {/* <ProductsList paginatedProducts={paginatedProducts} /> */}
+      <ul>
+        {paginatedProducts.map((product, key) => (
+          <li key={key}>
+            <Link href={`/product/${product.id}`}>{product.title}</Link>
+          </li>
+        ))}
+      </ul>
       <ProductsPagination
         currentPage={currentPage}
         numberofPages={numberofPages}

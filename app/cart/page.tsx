@@ -44,7 +44,7 @@ const CartPage = () => {
   }
 
   return (
-    <section id="page-cart" className="mt-8">
+    <section id="page-cart" className="mt-8 overflow-auto">
       <h2 className="mb-4 text-3xl font-semibold">My Cart</h2>
       <h3 className="mb-4 text-xl">
         {cart.products.length > 0
@@ -52,10 +52,10 @@ const CartPage = () => {
           : `Your cart is empty.`}
       </h3>
 
-      {cart.products.length > 0 && (
+      {cart?.products?.length > 0 && (
         <>
-          <table className="border-primary md:shadow-primary mb-4 w-full overflow-hidden rounded-md border text-left md:shadow-md">
-            <thead className="text-primary-light bg-primary-dark">
+          {/* <table className="mb-4 w-full overflow-hidden rounded-md border border-primary text-left md:shadow-md md:shadow-primary">
+            <thead className="bg-primary-dark text-primary-light">
               <tr className="flex">
                 <th className="flex-1 p-4 text-center max-md:hidden">Photo</th>
                 <th className="flex-[2] p-4 text-start max-md:hidden">
@@ -126,7 +126,7 @@ const CartPage = () => {
                   <td className="flex-1 p-4">
                     <button
                       aria-label={`Remove product from cart`}
-                      className="min-w-content xl:hover:bg-secondary bg-primary-dark inline-flex w-full items-center justify-center gap-2 rounded p-2 text-white transition-colors duration-200"
+                      className="min-w-content inline-flex w-full items-center justify-center gap-2 rounded bg-primary-dark p-2 text-white transition-colors duration-200 xl:hover:bg-secondary"
                       onClick={() => removeItem(product)}
                     >
                       <TrashIcon width={24} aria-hidden="true" />
@@ -136,7 +136,14 @@ const CartPage = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> */}
+          <ul>
+            {cart?.products?.map((product, key) => (
+              <li key={key}>
+                <Link href={`/product/${product.id}`}>{product.title}</Link>
+              </li>
+            ))}
+          </ul>
           <div className="flex flex-wrap items-start justify-between gap-5 rounded bg-gray-50 p-4 align-baseline max-xl:flex-wrap-reverse max-xl:justify-center max-xl:gap-10">
             <button
               aria-label="Checkout"

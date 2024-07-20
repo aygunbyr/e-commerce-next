@@ -18,10 +18,10 @@ export default async function Home() {
   }
 
   return (
-    <>
+    <div className="overflow-auto">
       {/* <Slider /> */}
       <Hero />
       <Products products={products} categories={categories} />
-    </>
+    </div>
   );
 }
