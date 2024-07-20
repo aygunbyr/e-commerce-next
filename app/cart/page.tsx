@@ -53,45 +53,102 @@ const CartPage = () => {
 
       {cart?.products?.length > 0 && (
         <>
-          <table className="mb-4 w-full overflow-hidden overflow-y-hidden rounded-lg border border-primary-dark text-left ">
-            <thead className="bg-primary-dark text-primary-light max-md:hidden">
-              <tr className="flex text-center">
-                <th className="flex-1 p-4">Photo</th>
-                <th className="flex-[2] p-4 text-start">Product</th>
-                <th className="flex-1 p-4">Price</th>
-                <th className="flex-1 p-4">Quantity</th>
-                <th className="flex-1 p-4">Action</th>
-              </tr>
-            </thead>
-            <tbody className="flex flex-col">
-              {cart.products.map((product, index) => (
-                <tr
-                  key={index}
-                  className="flex items-center border border-primary-light max-md:flex-col max-md:gap-2 max-md:py-5 xl:hover:bg-primary-light"
-                >
-                  <td className="flex-1 sm:p-4">
-                    <Link
-                      aria-label={product.title}
-                      href={`/product/${product.id}`}
-                    >
-                      <div className="relative h-32 w-32">
-                        <Image
-                          src={product.image}
-                          alt={product.title}
-                          aria-label={product.title}
-                          fill
-                          className="mx-auto object-contain p-4 mix-blend-multiply transition-all duration-200 xl:hover:scale-125"
-                        />
+          <div className="hidden overflow-auto rounded-lg shadow md:block">
+            <table className="mb-4 w-full border border-primary-dark text-left">
+              <thead className="bg-primary-dark text-primary-light">
+                <tr className="border-primary-dark text-center">
+                  <th className="w-32 p-4">Photo</th>
+                  <th className="w-100 p-4 text-start">Product</th>
+                  <th className="w-32 p-4">Price</th>
+                  <th className="w-60 p-4">Quantity</th>
+                  <th className="w-32  p-4">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cart.products.map((product, index) => (
+                  <tr
+                    key={index}
+                    className="border border-primary-light text-lg font-bold xl:hover:bg-primary-light"
+                  >
+                    <td className="w-32">
+                      <Link
+                        aria-label={product.title}
+                        href={`/product/${product.id}`}
+                      >
+                        <div className="relative h-32 w-32">
+                          <Image
+                            src={product.image}
+                            alt={product.title}
+                            aria-label={product.title}
+                            fill
+                            className="mx-auto object-contain p-4 mix-blend-multiply transition-all duration-200 xl:hover:scale-125"
+                          />
+                        </div>
+                      </Link>
+                    </td>
+                    <td className="w-100 p-4">{product.title}</td>
+                    <td className="w-32 p-4 text-center">${product.price}</td>
+                    <td className="w-60 gap-4 p-4 text-center">
+                      <div className="inline-flex items-center gap-4">
+                        <button
+                          aria-label={`Decrease quantity of product ${product.title}`}
+                          className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
+                          onClick={() =>
+                            dispatch({
+                              type: CartActionType.DECREASE_QUANTITY,
+                              payload: product,
+                            })
+                          }
+                        >
+                          <MinusIcon width={24} />
+                        </button>
+                        <span>{product.quantity} Pcs.</span>
+                        <button
+                          aria-label={`Increase quantity of product ${product.title}`}
+                          className="rounded-sm bg-green-700 p-0.5 text-white shadow shadow-green-700 transition-all duration-200 xl:hover:bg-green-600 xl:hover:shadow-green-600"
+                          onClick={() =>
+                            dispatch({
+                              type: CartActionType.INCREASE_QUANTITY,
+                              payload: product,
+                            })
+                          }
+                        >
+                          <PlusIcon width={24} />
+                        </button>
                       </div>
-                    </Link>
-                  </td>
-                  <td className="flex-[2] text-lg font-bold sm:p-4">
-                    {product.title}
-                  </td>
-                  <td className="flex-1 text-center text-lg font-bold sm:p-4">
-                    {product.price} ₺
-                  </td>
-                  <td className="inline-flex flex-1 items-center justify-center gap-4 text-center text-lg font-bold sm:p-4">
+                    </td>
+                    <td className="w-32 p-4">
+                      <button
+                        aria-label={`Remove product from cart`}
+                        className="min-w-content inline-flex w-full items-center justify-center gap-2 rounded bg-primary-dark p-2 text-white transition-colors duration-200 xl:hover:bg-secondary-light xl:hover:text-primary-dark"
+                        onClick={() => removeItem(product)}
+                      >
+                        <TrashIcon width={24} aria-hidden="true" />
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:hidden">
+            {cart?.products?.map((product, index) => (
+              <div key={index} className="rounded-lg bg-white p-4 shadow">
+                <div className="flex flex-col items-center gap-2 space-x-2 text-lg font-medium">
+                  <div className="relative h-32 w-32">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      aria-label={product.title}
+                      fill
+                      className="mx-auto object-contain p-4 mix-blend-multiply transition-all duration-200 xl:hover:scale-125"
+                    />
+                  </div>
+                  <span>{product.title}</span>
+                  <span>${product.price}</span>
+                  <div className="inline-flex items-center gap-4">
                     <button
                       aria-label={`Decrease quantity of product ${product.title}`}
                       className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
@@ -117,27 +174,18 @@ const CartPage = () => {
                     >
                       <PlusIcon width={24} />
                     </button>
-                  </td>
-                  <td className="flex-1 sm:p-4">
-                    <button
-                      aria-label={`Remove product from cart`}
-                      className="min-w-content inline-flex w-full items-center justify-center gap-2 rounded bg-primary-dark p-2 text-white transition-colors duration-200 xl:hover:bg-secondary"
-                      onClick={() => removeItem(product)}
-                    >
-                      <TrashIcon width={24} aria-hidden="true" />
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
           <div className="my-5 px-5">
             <p className="text-xl font-bold">Total:</p>
-            <h2 className="text-3xl font-bold">{totalPrice} ₺</h2>
+            <h2 className="text-3xl font-bold">{totalPrice} $</h2>
             <button
               aria-label="Order items"
-              className="my-5 flex items-center justify-center gap-2 rounded-md border border-transparent bg-primary-dark px-4 py-2 font-semibold  text-primary-light shadow-sm shadow-primary-dark transition-all duration-200 xl:hover:bg-secondary"
+              className="my-5 flex items-center justify-center gap-2 rounded-md border border-transparent bg-primary-dark px-4 py-2 font-semibold  text-primary-light shadow-sm shadow-primary-dark transition-all duration-200 xl:hover:bg-secondary-light xl:hover:text-primary-dark"
               onClick={() => orderItems()}
             >
               <ShoppingBagIcon width={24} aria-hidden="true" />
