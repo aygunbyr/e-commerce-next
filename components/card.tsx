@@ -8,7 +8,6 @@ import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/s
 import { toast } from 'react-toastify';
 
 import { CartActionType, useCart } from '@/context/cart-context';
-import styles from '@/styles/card/styles.module.css';
 import { Product } from '@/types';
 
 interface CardProps {
@@ -31,7 +30,10 @@ const Card = ({ product }: CardProps) => {
   };
 
   return (
-    <div id="product-card" className={`${styles.card} group`}>
+    <div
+      id="product-card"
+      className="group relative flex min-h-[270px] w-full flex-col gap-1 rounded border border-primary-light bg-primary-light p-2 shadow-sm transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-primary"
+    >
       <Link
         aria-label={product.title}
         className="mt-2 flex flex-col"
@@ -59,7 +61,7 @@ const Card = ({ product }: CardProps) => {
         </div>
       </Link>
       <button
-        className={`${styles['card-button']} group-hover:flex`}
+        className="absolute right-2 top-2 items-center justify-center rounded-full border bg-primary-dark p-1.5 text-primary-light transition-all duration-200 group-hover:flex xl:hidden xl:hover:bg-white xl:hover:text-primary-dark xl:hover:shadow-md xl:hover:shadow-primary-dark"
         aria-label={
           itemInCart ? 'Remove product from cart' : 'Add product to cart'
         }

@@ -1,3 +1,0 @@
-.empty-cart-button {
-  @apply my-5 flex items-center justify-center gap-2 rounded-md border border-transparent bg-primary-dark px-4 py-2 font-semibold  text-primary-light shadow-sm shadow-primary-dark transition-all duration-200 xl:hover:bg-secondary;
-}

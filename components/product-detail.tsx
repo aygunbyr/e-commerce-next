@@ -5,7 +5,6 @@ import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
 import type { Product } from '@/types';
-import styles from '@/styles/product-detail/styles.module.css';
 import { CartActionType, useCart } from '@/context/cart-context';
 
 const ProductDetail = ({ product }: { product: Product }) => {
@@ -46,7 +45,7 @@ const ProductDetail = ({ product }: { product: Product }) => {
             </p>
             <button
               aria-label="Go to cart page"
-              className={styles['cart-button']}
+              className="mx-2 mb-2 mt-auto flex w-80 items-center justify-center gap-1 rounded-md border border-primary-dark bg-primary-dark p-1 text-sm font-bold uppercase text-primary-light shadow-sm shadow-primary-dark transition-all duration-200 xl:hover:border-secondary xl:hover:bg-secondary"
               onClick={toggleCartAction}
             >
               {itemInCart ? (

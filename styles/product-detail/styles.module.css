@@ -1,3 +1,0 @@
-.cart-button {
-  @apply xl:hover:border-secondary xl:hover:bg-secondary border-primary-dark bg-primary-dark shadow-primary-dark text-primary-light mx-2 mb-2 mt-auto flex w-80 items-center justify-center gap-1 rounded-md border p-1 text-sm font-bold uppercase shadow-sm transition-all duration-200;
-}

@@ -11,7 +11,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
-import styles from '@/styles/cart-page/styles.module.css';
 import { CartActionType, useCart } from '@/context/cart-context';
 import type { ProductWithQuantity } from '@/types';
 import Loading from '@/components/loading';
@@ -138,7 +137,7 @@ const CartPage = () => {
             <h2 className="text-3xl font-bold">{totalPrice} ₺</h2>
             <button
               aria-label="Order items"
-              className={styles['empty-cart-button']}
+              className="my-5 flex items-center justify-center gap-2 rounded-md border border-transparent bg-primary-dark px-4 py-2 font-semibold  text-primary-light shadow-sm shadow-primary-dark transition-all duration-200 xl:hover:bg-secondary"
               onClick={() => orderItems()}
             >
               <ShoppingBagIcon width={24} aria-hidden="true" />
