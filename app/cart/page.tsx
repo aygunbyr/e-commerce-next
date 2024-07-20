@@ -151,7 +151,7 @@ const CartPage = () => {
               onClick={() => checkout()}
             >
               <ShoppingBagIcon width={32} aria-hidden="true" />
-              <span className="text-lg text-gray-100">Checkout</span>
+              <span className="text-lg text-primary-light">Checkout</span>
             </button>
             <div className="flex w-full flex-col items-center justify-center sm:w-1/3 md:items-end">
               <p className="text-end text-xl font-bold">Total:</p>

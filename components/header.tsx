@@ -18,26 +18,32 @@ const Header = () => {
           <Link
             href="/"
             aria-label="e-commerce"
-            className="text-3xl font-bold text-gray-100"
+            className="text-3xl font-bold text-primary-light"
           >
             e-commerce
           </Link>
-          <nav className="mt-2 flex-1 text-xl sm:mt-0">
-            <ul className="flex items-center justify-between">
+          <nav className="my-2 flex-1 text-xl sm:my-0">
+            <ul className="ml-5 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-6">
               <li className="inline-flex">
-                <Link href="/" aria-label="Go to home page">
-                  <HomeIcon width={32} />
+                <Link
+                  className="inline-flex items-center justify-center gap-1"
+                  href="/"
+                  aria-label="Go to home page"
+                >
+                  <HomeIcon width={24} />
+                  <span className="text-lg font-medium">Home</span>
                 </Link>
               </li>
               <li className="inline-flex">
                 <Link
-                  className="relative ml-auto mr-4"
+                  className="inline-flex items-center justify-center gap-1"
                   aria-label="Go to cart page"
                   href="/cart"
                 >
-                  <ShoppingCartIcon width={32} />
+                  <ShoppingCartIcon width={24} />
+                  <span className="text-lg font-medium">Cart</span>
                   {itemCount > 0 && (
-                    <span className="absolute right-0 top-0 rounded-full bg-gray-100 px-1 text-sm font-bold text-gray-900">
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-light text-base font-bold text-primary-dark">
                       {itemCount}
                     </span>
                   )}
