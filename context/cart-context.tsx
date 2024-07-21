@@ -50,29 +50,31 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
         products: [],
       };
 
-    case CartActionType.INCREASE_QUANTITY:
+    case CartActionType.INCREASE_QUANTITY: {
+      const product = state.products.find(
+        (item) => item.id === action.payload.id,
+      );
+      if (product) {
+        product.quantity += 1;
+      }
       return {
         ...state,
-        products: state.products.map((item) => {
-          if (item.id === action.payload.id) {
-            return { ...item, quantity: item.quantity + 1 };
-          }
-          return item;
-        }),
+        products: [...state.products],
       };
+    }
 
-    case CartActionType.DECREASE_QUANTITY:
+    case CartActionType.DECREASE_QUANTITY: {
+      const product = state.products.find(
+        (item) => item.id === action.payload.id,
+      );
+      if (product) {
+        product.quantity -= 1;
+      }
       return {
         ...state,
-        products: state.products
-          .map((item) => {
-            if (item.id === action.payload.id) {
-              return { ...item, quantity: item.quantity - 1 };
-            }
-            return item;
-          })
-          .filter((item) => item.quantity > 0),
+        products: state.products.filter((item) => item.quantity > 0),
       };
+    }
 
     case CartActionType.LOAD_CART:
       return {
