@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { CartActionType, useCart } from '@/context/cart-context';
 import type { ProductWithQuantity } from '@/types';
 import Loading from '@/components/loading';
+import { formatCurrency } from '@/utils';
 
 const CartPage = () => {
   const { state: cart, dispatch } = useCart();
@@ -35,7 +36,6 @@ const CartPage = () => {
           acc + product.price * product.quantity,
         0,
       )
-      .toFixed(2);
   }, [cart.products]);
 
   if (cart.loading) {
@@ -87,7 +87,7 @@ const CartPage = () => {
                       </Link>
                     </td>
                     <td className="w-100 p-4">{product.title}</td>
-                    <td className="w-32 p-4 text-center">${product.price}</td>
+                    <td className="w-32 p-4 text-center">${formatCurrency(product.price)}</td>
                     <td className="w-60 gap-4 p-4 text-center">
                       <div className="inline-flex items-center gap-4">
                         <button
@@ -147,7 +147,7 @@ const CartPage = () => {
                     />
                   </div>
                   <span>{product.title}</span>
-                  <span>${product.price}</span>
+                  <span>${formatCurrency(product.price)}</span>
                   <div className="inline-flex items-center gap-4">
                     <button
                       aria-label={`Decrease quantity of product ${product.title}`}
@@ -182,7 +182,7 @@ const CartPage = () => {
 
           <div className="my-5 px-5">
             <p className="text-xl font-bold">Total:</p>
-            <h2 className="text-3xl font-bold">{totalPrice} $</h2>
+            <h2 className="text-3xl font-bold">${formatCurrency(totalPrice)}</h2>
             <button
               aria-label="Order items"
               className="my-5 flex items-center justify-center gap-2 rounded-md border border-transparent bg-primary-dark px-4 py-2 font-semibold  text-primary-light shadow-sm shadow-primary-dark transition-all duration-200 xl:hover:bg-secondary-light xl:hover:text-primary-dark"

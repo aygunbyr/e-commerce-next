@@ -56,7 +56,7 @@ const Card = ({ product }: CardProps) => {
         </div>
         <div className="absolute top-56">
           <p className="whitespace-nowrap text-[28px] font-bold leading-tight">
-            {price} $
+            ${price}
           </p>
         </div>
       </Link>

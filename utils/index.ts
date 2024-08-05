@@ -5,3 +5,8 @@ export const toCapitalCase = (str: string): string => {
   );
   return capitalizedWords.join(' ');
 };
+
+export const formatCurrency = (number: number): string => {
+  return number.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+

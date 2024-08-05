@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 import type { Product } from '@/types';
 import { CartActionType, useCart } from '@/context/cart-context';
+import { formatCurrency } from '@/utils';
 
 const ProductDetail = ({ product }: { product: Product }) => {
   const { state, dispatch } = useCart();
@@ -36,7 +37,7 @@ const ProductDetail = ({ product }: { product: Product }) => {
           </div>
           <div className="flex flex-1 flex-col gap-5">
             <h2 className="text-3xl">{product.title}</h2>
-            <p className="text-2xl font-bold">${product.price}</p>
+            <p className="text-2xl font-bold">${formatCurrency(product.price)}</p>
             <p>{product.description}</p>
             <p>Category: {product.category}</p>
             <p>
