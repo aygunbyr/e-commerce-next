@@ -4,12 +4,33 @@ import Image from 'next/image';
 import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
-import type { Product } from '@/types';
 import { CartActionType, useCart } from '@/context/cart-context';
 import { formatCurrency } from '@/utils';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useEffect } from 'react';
+import { getProductById } from '@/redux/productsSlice';
 
-const ProductDetail = ({ product }: { product: Product }) => {
-  const { state, dispatch } = useCart();
+interface ProductDetailProps {
+  productId: number;
+}
+
+const ProductDetail = ({ productId }: ProductDetailProps) => {
+  const { state, dispatch: ctxDispatch } = useCart();
+  const dispatch = useAppDispatch();
+
+  const { product, productError, productLoading } = useAppSelector(
+    (state) => state.products,
+  );
+
+  useEffect(() => {
+    const getThisProduct = async () => {
+      await dispatch(getProductById(productId));
+    };
+
+    getThisProduct();
+  }, []);
+
+  useEffect(() => {}, []);
 
   const itemInCart = state.products.some((item) => item.id === product?.id);
 
@@ -20,8 +41,16 @@ const ProductDetail = ({ product }: { product: Product }) => {
     itemInCart
       ? toast.error(`${product?.title} removed from cart 🛒`)
       : toast.success(`${product?.title} added to cart 🛒`);
-    dispatch({ type: actionType, payload: product });
+    ctxDispatch({ type: actionType, payload: product });
   };
+
+  if (productLoading) {
+    return <p>Product is loading...</p>;
+  }
+
+  if (productError) {
+    return <p>Failed fetching product. Error: {productError}</p>;
+  }
 
   return (
     <section id="page-product-detail" className="flex w-full">
@@ -37,7 +66,9 @@ const ProductDetail = ({ product }: { product: Product }) => {
           </div>
           <div className="flex flex-1 flex-col gap-5">
             <h2 className="text-3xl">{product.title}</h2>
-            <p className="text-2xl font-bold">${formatCurrency(product.price)}</p>
+            <p className="text-2xl font-bold">
+              ${formatCurrency(product.price)}
+            </p>
             <p>{product.description}</p>
             <p>Category: {product.category}</p>
             <p>

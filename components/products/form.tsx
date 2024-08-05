@@ -1,23 +1,17 @@
-import { toCapitalCase } from '@/utils';
+'use client';
 import React from 'react';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setCategory, setSearchText } from '@/redux/productsSlice';
+import { toCapitalCase } from '@/utils';
 
-interface ProductsFormProps {
-  categories: string[];
-  filter: string;
-  setFilter: (filter: string) => void;
-  searchText: string;
-  setSearchText: (searchText: string) => void;
-}
+const ProductsForm = () => {
+  const { categories, category, searchText } = useAppSelector(
+    (state) => state.products,
+  );
+  const dispatch = useAppDispatch();
 
-const ProductsForm = ({
-  categories,
-  filter,
-  setFilter,
-  searchText,
-  setSearchText,
-}: ProductsFormProps) => {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
   };
 
   return (
@@ -34,10 +28,10 @@ const ProductsForm = ({
           className="rounded-sm border p-1 text-primary-dark focus:outline-none"
           id="filter-select"
           name="filter"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            setFilter(e.target.value)
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+            dispatch(setCategory(event.target.value))
           }
-          value={filter}
+          value={category}
         >
           <option value="all">All Categories</option>?
           {categories?.map((category: string, index: number) => (
@@ -57,8 +51,8 @@ const ProductsForm = ({
           name="search"
           type="text"
           placeholder="Search..."
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSearchText(e.target.value)
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            dispatch(setSearchText(event.target.value))
           }
           value={searchText}
         />

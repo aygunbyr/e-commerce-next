@@ -1,15 +1,15 @@
+import { useAppSelector } from '@/redux/hooks';
 import Card from '@/components/card';
-import type { Product } from '@/types';
 
-interface ProductListProps {
-  paginatedProducts: Product[];
-}
+const ProductsList = () => {
+  const paginatedProducts = useAppSelector(
+    (state) => state.products.filteredProducts,
+  );
 
-const ProductsList = ({ paginatedProducts }: ProductListProps) => {
   return (
     <section id="products" className="flex flex-wrap">
       {paginatedProducts?.length > 0 ? (
-        paginatedProducts?.map((product: Product) => {
+        paginatedProducts?.map((product) => {
           return (
             <div
               key={product.id}
