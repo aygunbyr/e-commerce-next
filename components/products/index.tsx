@@ -1,13 +1,12 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import type { Product } from '@/types';
-import usePagination from '@/hooks/usePagination';
 import ProductsForm from './form';
 import ProductsList from './list';
 import ProductsPagination from './pagination';
-import Link from 'next/link';
 
 interface ProductsProps {
   products: Product[];
@@ -17,70 +16,80 @@ interface ProductsProps {
 const ITEMS_PER_PAGE = 10;
 
 const Products = ({ products, categories }: ProductsProps) => {
-  const [filter, setFilter] = useState<string>('all');
-  const [searchText, setSearchText] = useState<string>('');
-  const [paginatedProducts, setPaginatedProducts] = useState<Product[]>([]);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const filteredProducts = useMemo<Product[]>(() => {
-    if (!products) return [];
-    const filteredByCategory =
-      filter === 'all'
-        ? products
-        : products.filter((item: Product) => item.category === filter);
+  const [currentCategory, setCurrentCategory] = useState<string>(searchParams.get('category') || "all");
+  const [searchText, setSearchText] = useState<string>(searchParams.get("search") || "");
+  const [currentPage, setCurrentPage] = useState<number>(parseInt(searchParams.get("page") || "1"));
+  const [numberOfPages, setNumberOfPages] = useState<number>(1);
 
-    const searchLowerCase = searchText.toLowerCase();
+  const paginatedProducts = useMemo(() => {
+    if(!products) {
+      return []
+    }
+    const filteredByCategory =  currentCategory === "all" ? products : products.filter(product => product.category === currentCategory);
+    const filteredBySearchText = !searchText ? filteredByCategory : filteredByCategory.filter(({title}) => title.toLowerCase().includes(searchText.toLowerCase()));
+    const numberOfPagesCalculated = Math.ceil(filteredBySearchText.length / ITEMS_PER_PAGE);
+    setNumberOfPages(numberOfPagesCalculated);
+    const startIndex = (currentPage-1) * ITEMS_PER_PAGE;
+    const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredBySearchText.length);
+    const filteredByPageNumber = numberOfPages === 1 ? filteredBySearchText : filteredBySearchText.slice(startIndex, endIndex);
+    return filteredByPageNumber
+  }, [products, currentCategory, searchText, currentPage, numberOfPages]);
 
-    const filteredBySearchTerm = searchText
-      ? filteredByCategory.filter(
-          (item: Product) =>
-            item.title.toLowerCase().includes(searchLowerCase) ||
-            item.description.toLowerCase().includes(searchLowerCase),
-        )
-      : filteredByCategory;
+  const hasPreviousPage = useMemo<boolean>(
+    () => currentPage > 1,
+    [currentPage],
+  );
 
-    return filteredBySearchTerm;
-  }, [filter, products, searchText]);
+  const hasNextPage = useMemo<boolean>(
+    () => currentPage < numberOfPages,
+    [currentPage, numberOfPages],
+  );
 
-  const {
-    currentPage,
-    numberofPages,
-    gotoPreviousPage,
-    gotoNextPage,
-    gotoFirstPage,
-    hasPreviousPage,
-    hasNextPage,
-    startIndex,
-    endIndex,
-  } = usePagination(filteredProducts.length, ITEMS_PER_PAGE);
+  const gotoPreviousPage = () => {
+    if(hasPreviousPage) {
+      setCurrentPage((page) => page - 1);
+    }
+  }
+
+  const gotoNextPage = () => {
+    if(hasNextPage) {
+      setCurrentPage((page) => page + 1);
+    }
+  }
 
   useEffect(() => {
-    setPaginatedProducts(filteredProducts.slice(startIndex, endIndex));
-  }, [filteredProducts, startIndex, endIndex]);
+    const params = new URLSearchParams();
+    if (currentCategory !== 'all') {
+      params.set('category', currentCategory);
+    }
+    if(searchText) {
+      params.set("search", searchText);
+    }
+    if(currentPage > numberOfPages) {
+      setCurrentPage(1);
+    }
+    params.set("page", currentPage.toString());
 
-  useEffect(() => {
-    gotoFirstPage();
-  }, [filter, searchText, gotoFirstPage]);
+    const newUrl = `${window?.location.pathname}?${params.toString()}`;
+    router.replace(newUrl);
+  }, [currentCategory, currentPage, searchText, numberOfPages, router]);
 
   return (
     <>
       <ProductsForm
         categories={categories}
-        filter={filter}
-        setFilter={setFilter}
+        filter={currentCategory}
+        setFilter={setCurrentCategory}
         searchText={searchText}
         setSearchText={setSearchText}
       />
       <ProductsList paginatedProducts={paginatedProducts} />
-      {/* <ul>
-        {paginatedProducts.map((product, key) => (
-          <li key={key}>
-            <Link href={`/product/${product.id}`}>{product.title}</Link>
-          </li>
-        ))}
-      </ul> */}
       <ProductsPagination
         currentPage={currentPage}
-        numberofPages={numberofPages}
+        numberofPages={numberOfPages}
         hasPreviousPage={hasPreviousPage}
         hasNextPage={hasNextPage}
         gotoPreviousPage={gotoPreviousPage}
