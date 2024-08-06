@@ -92,6 +92,7 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     filterProducts: (state) => {
+      if (state.products.length === 0) return;
       const filteredByCategory =
         state.category === 'all'
           ? state.products
@@ -126,13 +127,14 @@ export const productsSlice = createSlice({
     },
     setCategory: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
-      state.currentPage = 1;
+      if (state.filteredProducts.length > 0) {
+        state.currentPage = 1;
+      }
     },
     setSearchText: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
     },
-    setCurrentPage: (state, action: PayloadAction<number>) => {
-      if (action.payload > state.numberOfPages || action.payload < 1) return;
+    setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
   },
