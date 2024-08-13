@@ -1,3 +1,4 @@
+import { ProductWithQuantity } from '@/types';
 import type {
   CartAction,
   CartActionType,
@@ -9,7 +10,10 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
     case 'ADD_ITEM' as CartActionType.ADD_ITEM:
       return {
         ...state,
-        products: [...state.products, { ...action.payload, quantity: 1 }],
+        products: [
+          ...state.products,
+          { ...action.payload, quantity: 1 } as ProductWithQuantity,
+        ],
       };
 
     case 'REMOVE_ITEM' as CartActionType.REMOVE_ITEM:

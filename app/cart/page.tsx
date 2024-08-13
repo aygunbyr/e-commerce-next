@@ -20,7 +20,10 @@ const CartPage = () => {
   const { state: cart, dispatch } = useCart();
 
   const removeItem = (product: ProductWithQuantity) => {
-    dispatch({ type: CartActionType.REMOVE_ITEM, payload: product });
+    dispatch({
+      type: CartActionType.REMOVE_ITEM,
+      payload: { id: product?.id },
+    });
     toast.error(`${product.title} removed from cart 🛒`);
   };
 

@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 
-import type { ProductWithQuantity } from '@/types';
+import type { Product, ProductWithQuantity } from '@/types';
 import cartReducer from './cart-reducer';
 
 export enum CartActionType {
@@ -15,7 +15,7 @@ export enum CartActionType {
 }
 
 export type CartAction =
-  | { type: CartActionType.ADD_ITEM; payload: ProductWithQuantity }
+  | { type: CartActionType.ADD_ITEM; payload: Product }
   | { type: CartActionType.REMOVE_ITEM; payload: { id: number } }
   | { type: CartActionType.EMPTY_CART }
   | { type: CartActionType.INCREASE_QUANTITY; payload: { id: number } }

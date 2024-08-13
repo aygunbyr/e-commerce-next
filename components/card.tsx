@@ -20,13 +20,17 @@ const Card = ({ product }: CardProps) => {
   const itemInCart = state.products?.some((item) => item.id === product.id);
 
   const toggleCartAction = () => {
-    const actionType = itemInCart
-      ? CartActionType.REMOVE_ITEM
-      : CartActionType.ADD_ITEM;
-    itemInCart
-      ? toast.error(`${title} removed from cart 🛒`)
-      : toast.success(`${title} added to cart 🛒`);
-    dispatch({ type: actionType, payload: product });
+    if (!product) return;
+    if (itemInCart) {
+      dispatch({
+        type: CartActionType.REMOVE_ITEM,
+        payload: { id: product?.id },
+      });
+      toast.error(`${product?.title} removed from cart 🛒`);
+    } else if (!itemInCart) {
+      dispatch({ type: CartActionType.ADD_ITEM, payload: product });
+      toast.success(`${product?.title} added to cart 🛒`);
+    }
   };
 
   return (

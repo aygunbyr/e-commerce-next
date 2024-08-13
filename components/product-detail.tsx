@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { CartActionType, useCart } from '@/context/cart-provider';
 import { formatCurrency } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { getProductById } from '@/redux/productsSlice';
 
 interface ProductDetailProps {
@@ -15,7 +15,7 @@ interface ProductDetailProps {
 }
 
 const ProductDetail = ({ productId }: ProductDetailProps) => {
-  const { state, dispatch: ctxDispatch } = useCart();
+  const { state, dispatch: contextDispatch } = useCart();
   const dispatch = useAppDispatch();
 
   const { product, productError, productLoading } = useAppSelector(
@@ -26,22 +26,26 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
     const getThisProduct = async () => {
       await dispatch(getProductById(productId));
     };
-
     getThisProduct();
   }, []);
 
-  useEffect(() => {}, []);
-
-  const itemInCart = state.products.some((item) => item.id === product?.id);
+  const itemInCart = useMemo(
+    () => state.products.some((item) => item.id === product?.id),
+    [state.products, product],
+  );
 
   const toggleCartAction = () => {
-    const actionType = itemInCart
-      ? CartActionType.REMOVE_ITEM
-      : CartActionType.ADD_ITEM;
-    itemInCart
-      ? toast.error(`${product?.title} removed from cart 🛒`)
-      : toast.success(`${product?.title} added to cart 🛒`);
-    ctxDispatch({ type: actionType, payload: product });
+    if (!product) return;
+    if (itemInCart) {
+      contextDispatch({
+        type: CartActionType.REMOVE_ITEM,
+        payload: { id: product?.id },
+      });
+      toast.error(`${product?.title} removed from cart 🛒`);
+    } else if (!itemInCart) {
+      contextDispatch({ type: CartActionType.ADD_ITEM, payload: product });
+      toast.success(`${product?.title} added to cart 🛒`);
+    }
   };
 
   if (productLoading) {
