@@ -7,7 +7,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/solid';
 import { toast } from 'react-toastify';
 
-import { CartActionType, useCart } from '@/context/cart-context';
+import { CartActionType, useCart } from '@/context/cart-provider';
 import { Product } from '@/types';
 
 interface CardProps {

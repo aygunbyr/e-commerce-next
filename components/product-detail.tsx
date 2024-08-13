@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
-import { CartActionType, useCart } from '@/context/cart-context';
+import { CartActionType, useCart } from '@/context/cart-provider';
 import { formatCurrency } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useEffect } from 'react';

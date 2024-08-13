@@ -11,7 +11,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
-import { CartActionType, useCart } from '@/context/cart-context';
+import { CartActionType, useCart } from '@/context/cart-provider';
 import type { ProductWithQuantity } from '@/types';
 import Loading from '@/components/loading';
 import { formatCurrency } from '@/utils';
@@ -30,12 +30,11 @@ const CartPage = () => {
   };
 
   const totalPrice = useMemo(() => {
-    return cart.products
-      .reduce(
-        (acc: number, product: ProductWithQuantity) =>
-          acc + product.price * product.quantity,
-        0,
-      )
+    return cart.products.reduce(
+      (acc: number, product: ProductWithQuantity) =>
+        acc + product.price * product.quantity,
+      0,
+    );
   }, [cart.products]);
 
   if (cart.loading) {
@@ -87,7 +86,9 @@ const CartPage = () => {
                       </Link>
                     </td>
                     <td className="w-100 p-4">{product.title}</td>
-                    <td className="w-32 p-4 text-center">${formatCurrency(product.price)}</td>
+                    <td className="w-32 p-4 text-center">
+                      ${formatCurrency(product.price)}
+                    </td>
                     <td className="w-60 gap-4 p-4 text-center">
                       <div className="inline-flex items-center gap-4">
                         <button
@@ -182,7 +183,9 @@ const CartPage = () => {
 
           <div className="my-5 px-5">
             <p className="text-xl font-bold">Total:</p>
-            <h2 className="text-3xl font-bold">${formatCurrency(totalPrice)}</h2>
+            <h2 className="text-3xl font-bold">
+              ${formatCurrency(totalPrice)}
+            </h2>
             <button
               aria-label="Order items"
               className="my-5 flex items-center justify-center gap-2 rounded-md border border-transparent bg-primary-dark px-4 py-2 font-semibold  text-primary-light shadow-sm shadow-primary-dark transition-all duration-200 xl:hover:bg-secondary-light xl:hover:text-primary-dark"

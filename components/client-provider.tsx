@@ -4,15 +4,15 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
 import { ToastContainer } from 'react-toastify';
-import { CartContextProvider } from '@/context/cart-context';
+import CartProvider from '@/context/cart-provider';
 
-const ClientProvider = ({ children }: { children: React.ReactNode }) => {
+const ClientProvider = ({ children }: React.PropsWithChildren) => {
   return (
     <Provider store={store}>
-      <CartContextProvider>
+      <CartProvider>
         {children}
         <ToastContainer position="top-center" theme="light" hideProgressBar />
-      </CartContextProvider>
+      </CartProvider>
     </Provider>
   );
 };
