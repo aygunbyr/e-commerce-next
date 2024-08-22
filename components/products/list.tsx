@@ -1,15 +1,20 @@
 import { useAppSelector } from '@/redux/hooks';
 import Card from '@/components/card';
+import Loading from '../loading';
 
 const ProductsList = () => {
-  const paginatedProducts = useAppSelector(
-    (state) => state.products.filteredProducts,
+  const { filteredProducts, productsLoading, productsError } = useAppSelector(
+    (state) => state.products,
   );
+
+  if (productsLoading) {
+    return <Loading />;
+  }
 
   return (
     <section id="products" className="flex flex-wrap">
-      {paginatedProducts?.length > 0 ? (
-        paginatedProducts?.map((product) => {
+      {filteredProducts?.length > 0 ? (
+        filteredProducts?.map((product) => {
           return (
             <div
               key={product.id}
@@ -21,7 +26,9 @@ const ProductsList = () => {
         })
       ) : (
         <p className="my-4 w-full text-center text-xl">
-          No product found matching these criteria
+          {productsError
+            ? 'An error occured while getting products'
+            : 'No product found matching these criteria'}
         </p>
       )}
     </section>

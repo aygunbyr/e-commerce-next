@@ -17,6 +17,9 @@ const config: Config = {
       inter: ['Inter', 'sans-serif'],
     },
     extend: {
+      animation: {
+        pop: 'pop 0.5s cubic-bezier(.26, .53, .74, 1.48)',
+      },
       colors: {
         primary: {
           light: '#e2e8f0', // slate-200
@@ -27,6 +30,12 @@ const config: Config = {
           light: '#fde68a', // amber-200
           DEFAULT: '#f59e0b', // amber-500
           dark: '#92400e', // amber-800
+        },
+      },
+      keyframes: {
+        pop: {
+          '0%': { opacity: '0', transform: 'scale(0.8, 0.8)' },
+          '100%': { opacity: '1', transform: 'scale(1, 1)' },
         },
       },
       width: {

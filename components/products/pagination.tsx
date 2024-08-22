@@ -35,7 +35,7 @@ const ProductsPagination = () => {
       <button
         disabled={!hasPreviousPage}
         onClick={gotoPreviousPage}
-        className={`mr-4 rounded px-3 py-0.5 ${
+        className={`mr-4 rounded px-3 py-0.5 transition-all duration-200 ${
           !hasPreviousPage
             ? 'border border-primary bg-transparent'
             : 'bg-primary-dark text-primary-light'
@@ -47,7 +47,7 @@ const ProductsPagination = () => {
       {hasPreviousPage && (
         <button
           onClick={gotoPreviousPage}
-          className="mr-4 rounded bg-primary-dark px-2 py-0.5 text-primary-light"
+          className="mr-4 rounded bg-primary-dark px-2 py-0.5 text-primary-light transition-all duration-200"
         >
           {currentPage - 1}
         </button>
@@ -58,7 +58,7 @@ const ProductsPagination = () => {
       {hasNextPage && (
         <button
           onClick={gotoNextPage}
-          className="mr-4 rounded bg-primary-dark px-2 py-0.5 text-primary-light"
+          className="mr-4 rounded bg-primary-dark px-2 py-0.5 text-primary-light transition-all duration-200"
         >
           {currentPage + 1}
         </button>
@@ -67,7 +67,7 @@ const ProductsPagination = () => {
       <button
         disabled={!hasNextPage}
         onClick={gotoNextPage}
-        className={`mr-4 rounded px-3 py-0.5 ${
+        className={`mr-4 rounded px-3 py-0.5 transition-all duration-200 ${
           !hasNextPage
             ? 'border border-primary bg-transparent'
             : 'bg-primary-dark text-primary-light'
