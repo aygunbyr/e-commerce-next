@@ -7,7 +7,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/solid';
 import { toast } from 'react-toastify';
 
-import { CartActionType, useCart } from '@/context/cart-provider';
+import { useCart } from '@/context/cart-provider';
 import { Product } from '@/types';
 
 interface CardProps {
@@ -23,12 +23,12 @@ const Card = ({ product }: CardProps) => {
     if (!product) return;
     if (itemInCart) {
       dispatch({
-        type: CartActionType.REMOVE_ITEM,
+        type: 'REMOVE_ITEM',
         payload: { id: product?.id },
       });
       toast.error(`${product?.title} removed from cart 🛒`);
     } else if (!itemInCart) {
-      dispatch({ type: CartActionType.ADD_ITEM, payload: product });
+      dispatch({ type: 'ADD_ITEM', payload: product });
       toast.success(`${product?.title} added to cart 🛒`);
     }
   };
@@ -36,7 +36,7 @@ const Card = ({ product }: CardProps) => {
   return (
     <div
       id="product-card"
-      className="animate-pop group relative flex min-h-[270px] w-full flex-col gap-1 rounded border border-primary-light bg-primary-light p-2 shadow-sm transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-primary"
+      className="group relative flex min-h-[270px] w-full animate-pop flex-col gap-1 rounded border border-primary-light bg-primary-light p-2 shadow-sm transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-primary"
     >
       <Link
         aria-label={product.title}

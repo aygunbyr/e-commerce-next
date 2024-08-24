@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
-import { CartActionType, useCart } from '@/context/cart-provider';
+import { useCart } from '@/context/cart-provider';
 import { formatCurrency } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useEffect, useMemo } from 'react';
@@ -38,12 +38,12 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
     if (!product) return;
     if (itemInCart) {
       contextDispatch({
-        type: CartActionType.REMOVE_ITEM,
+        type: 'REMOVE_ITEM',
         payload: { id: product?.id },
       });
       toast.error(`${product?.title} removed from cart 🛒`);
     } else if (!itemInCart) {
-      contextDispatch({ type: CartActionType.ADD_ITEM, payload: product });
+      contextDispatch({ type: 'ADD_ITEM', payload: product });
       toast.success(`${product?.title} added to cart 🛒`);
     }
   };

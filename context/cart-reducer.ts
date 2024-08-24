@@ -1,13 +1,9 @@
 import { ProductWithQuantity } from '@/types';
-import type {
-  CartAction,
-  CartActionType,
-  CartContextState,
-} from './cart-provider';
+import type { CartAction, CartContextState } from './cart-provider';
 
 const cartReducer = (state: CartContextState, action: CartAction) => {
   switch (action.type) {
-    case 'ADD_ITEM' as CartActionType.ADD_ITEM:
+    case 'ADD_ITEM':
       return {
         ...state,
         products: [
@@ -16,7 +12,7 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
         ],
       };
 
-    case 'REMOVE_ITEM' as CartActionType.REMOVE_ITEM:
+    case 'REMOVE_ITEM':
       return {
         ...state,
         products: state.products.filter(
@@ -24,13 +20,13 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
         ),
       };
 
-    case 'EMPTY_CART' as CartActionType.EMPTY_CART:
+    case 'EMPTY_CART':
       return {
         ...state,
         products: [],
       };
 
-    case 'INCREASE_QUANTITY' as CartActionType.INCREASE_QUANTITY: {
+    case 'INCREASE_QUANTITY': {
       const updatedProducts = state.products.map((item) =>
         item.id === action.payload.id
           ? { ...item, quantity: item.quantity + 1 }
@@ -42,7 +38,7 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
       };
     }
 
-    case 'DECREASE_QUANTITY' as CartActionType.DECREASE_QUANTITY: {
+    case 'DECREASE_QUANTITY': {
       const updatedProducts = state.products
         .map((item) =>
           item.id === action.payload.id
@@ -56,7 +52,7 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
       };
     }
 
-    case 'LOAD_CART' as CartActionType.LOAD_CART:
+    case 'LOAD_CART':
       return {
         ...state,
         products: [...action.payload],

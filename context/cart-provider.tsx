@@ -5,22 +5,21 @@ import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import type { Product, ProductWithQuantity } from '@/types';
 import cartReducer from './cart-reducer';
 
-export enum CartActionType {
-  ADD_ITEM = 'ADD_ITEM',
-  REMOVE_ITEM = 'REMOVE_ITEM',
-  EMPTY_CART = 'EMPTY_CART',
-  INCREASE_QUANTITY = 'INCREASE_QUANTITY',
-  DECREASE_QUANTITY = 'DECREASE_QUANTITY',
-  LOAD_CART = 'LOAD_CART',
-}
+export type CartActionType =
+  | 'ADD ITEM'
+  | 'REMOVE_ITEM'
+  | 'EMPTY_CART'
+  | 'INCREASE_QUANTITY'
+  | 'DECREASE_QUANTITY'
+  | 'LOAD_CART';
 
 export type CartAction =
-  | { type: CartActionType.ADD_ITEM; payload: Product }
-  | { type: CartActionType.REMOVE_ITEM; payload: { id: number } }
-  | { type: CartActionType.EMPTY_CART }
-  | { type: CartActionType.INCREASE_QUANTITY; payload: { id: number } }
-  | { type: CartActionType.DECREASE_QUANTITY; payload: { id: number } }
-  | { type: CartActionType.LOAD_CART; payload: ProductWithQuantity[] };
+  | { type: 'ADD_ITEM'; payload: Product }
+  | { type: 'REMOVE_ITEM'; payload: { id: number } }
+  | { type: 'EMPTY_CART' }
+  | { type: 'INCREASE_QUANTITY'; payload: { id: number } }
+  | { type: 'DECREASE_QUANTITY'; payload: { id: number } }
+  | { type: 'LOAD_CART'; payload: ProductWithQuantity[] };
 
 export interface CartContextState {
   loading: boolean;
@@ -48,7 +47,7 @@ export const CartProvider = ({ children }: React.PropsWithChildren) => {
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     dispatch({
-      type: CartActionType.LOAD_CART,
+      type: 'LOAD_CART',
       payload: (storedCart
         ? JSON.parse(storedCart)
         : []) as ProductWithQuantity[],

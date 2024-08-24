@@ -11,7 +11,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
-import { CartActionType, useCart } from '@/context/cart-provider';
+import { useCart } from '@/context/cart-provider';
 import type { ProductWithQuantity } from '@/types';
 import Loading from '@/components/loading';
 import { formatCurrency } from '@/utils';
@@ -21,14 +21,14 @@ const CartPage = () => {
 
   const removeItem = (product: ProductWithQuantity) => {
     dispatch({
-      type: CartActionType.REMOVE_ITEM,
+      type: 'REMOVE_ITEM',
       payload: { id: product?.id },
     });
     toast.error(`${product.title} removed from cart 🛒`);
   };
 
   const orderItems = () => {
-    dispatch({ type: CartActionType.EMPTY_CART });
+    dispatch({ type: 'EMPTY_CART' });
     toast.success('Your products have been shipped');
   };
 
@@ -99,7 +99,7 @@ const CartPage = () => {
                           className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
                           onClick={() =>
                             dispatch({
-                              type: CartActionType.DECREASE_QUANTITY,
+                              type: 'DECREASE_QUANTITY',
                               payload: product,
                             })
                           }
@@ -112,7 +112,7 @@ const CartPage = () => {
                           className="rounded-sm bg-green-700 p-0.5 text-white shadow shadow-green-700 transition-all duration-200 xl:hover:bg-green-600 xl:hover:shadow-green-600"
                           onClick={() =>
                             dispatch({
-                              type: CartActionType.INCREASE_QUANTITY,
+                              type: 'INCREASE_QUANTITY',
                               payload: product,
                             })
                           }
@@ -158,7 +158,7 @@ const CartPage = () => {
                       className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
                       onClick={() =>
                         dispatch({
-                          type: CartActionType.DECREASE_QUANTITY,
+                          type: 'DECREASE_QUANTITY',
                           payload: product,
                         })
                       }
@@ -171,7 +171,7 @@ const CartPage = () => {
                       className="rounded-sm bg-green-700 p-0.5 text-white shadow shadow-green-700 transition-all duration-200 xl:hover:bg-green-600 xl:hover:shadow-green-600"
                       onClick={() =>
                         dispatch({
-                          type: CartActionType.INCREASE_QUANTITY,
+                          type: 'INCREASE_QUANTITY',
                           payload: product,
                         })
                       }
