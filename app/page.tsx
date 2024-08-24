@@ -1,5 +1,5 @@
 import Hero from '@/components/hero';
-import Products from '@/components/products';
+import Products from '@/features/products';
 
 export default async function Home() {
   return (

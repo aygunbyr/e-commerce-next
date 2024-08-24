@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setCategory, setSearchText } from '@/redux/productsSlice';
+import { setCategory, setSearchText } from '@/features/products/productsSlice';
 import { toCapitalCase } from '@/utils';
 
 const ProductsForm = () => {

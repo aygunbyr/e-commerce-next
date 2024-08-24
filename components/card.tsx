@@ -7,7 +7,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/solid';
 import { toast } from 'react-toastify';
 
-import { useCart } from '@/context/cart-provider';
+import { useCart } from '@/features/cart/cart-provider';
 import { Product } from '@/types';
 
 interface CardProps {
@@ -42,7 +42,7 @@ const Card = ({ product }: CardProps) => {
         aria-label={product.title}
         className="mt-2 flex flex-col"
         key={product.id}
-        href={`/product/${product.id}`}
+        href={`/products/${product.id}`}
       >
         <div className="relative h-36">
           <Image

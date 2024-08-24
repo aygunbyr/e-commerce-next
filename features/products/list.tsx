@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/redux/hooks';
 import Card from '@/components/card';
-import Loading from '../loading';
+import Loading from '@/components/loading';
 
 const ProductsList = () => {
   const { filteredProducts, productsLoading, productsError } = useAppSelector(

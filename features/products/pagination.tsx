@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setCurrentPage } from '@/redux/productsSlice';
+import { setCurrentPage } from '@/features/products/productsSlice';
 
 const ProductsPagination = () => {
   const dispatch = useAppDispatch();

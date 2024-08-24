@@ -14,7 +14,7 @@ import {
   setCategory,
   setCurrentPage,
   setSearchText,
-} from '@/redux/productsSlice';
+} from '@/features/products/productsSlice';
 
 const Products = () => {
   const router = useRouter();

@@ -4,11 +4,12 @@ import Image from 'next/image';
 import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
-import { useCart } from '@/context/cart-provider';
+import { useCart } from '@/features/cart/cart-provider';
 import { formatCurrency } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useEffect, useMemo } from 'react';
-import { getProductById } from '@/redux/productsSlice';
+import { getProductById } from '@/features/products/productsSlice';
+import Loading from '../../components/loading';
 
 interface ProductDetailProps {
   productId: number;
@@ -49,7 +50,7 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
   };
 
   if (productLoading) {
-    return <p>Product is loading...</p>;
+    return <Loading />;
   }
 
   if (productError) {

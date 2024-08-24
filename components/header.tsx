@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { HomeIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 
-import { useCart } from '@/context/cart-provider';
+import { useCart } from '@/features/cart/cart-provider';
 
 const Header = () => {
   const { state } = useCart();
