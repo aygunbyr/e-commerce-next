@@ -20,9 +20,8 @@ const Products = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
-  const { category, currentPage, numberOfPages, searchText } = useAppSelector(
-    (state) => state.products,
-  );
+  const { categories, category, currentPage, products, searchText } =
+    useAppSelector((state) => state.products);
 
   useEffect(() => {
     const categoryParam = searchParams.get('category');
@@ -38,8 +37,8 @@ const Products = () => {
       dispatch(setCurrentPage(parseInt(pageParam)));
     }
     const getFilteredProducts = async () => {
-      await dispatch(getCategories());
-      await dispatch(getProducts());
+      if (categories.length === 0) await dispatch(getCategories());
+      if (products.length === 0) await dispatch(getProducts());
       dispatch(filterProducts());
     };
     getFilteredProducts();
