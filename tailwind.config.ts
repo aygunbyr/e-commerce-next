@@ -20,6 +20,7 @@ const config: Config = {
     extend: {
       animation: {
         pop: 'pop 0.5s cubic-bezier(.26, .53, .74, 1.48)',
+        landing: 'landing 0.3s cubic-bezier(.26, .53, .74, 1.48)',
       },
       colors: {
         primary: {
@@ -37,6 +38,12 @@ const config: Config = {
         pop: {
           '0%': { opacity: '0', transform: 'scale(0.8, 0.8)' },
           '100%': { opacity: '1', transform: 'scale(1, 1)' },
+        },
+        landing: {
+          '0%': {
+            transform: 'scale(1.05, 1.05) translateY(20px)',
+          },
+          '100%': { transform: 'scale(1, 1) translateY(0)' },
         },
       },
       width: {
