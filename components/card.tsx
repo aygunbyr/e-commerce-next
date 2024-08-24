@@ -36,7 +36,7 @@ const Card = ({ product }: CardProps) => {
   return (
     <div
       id="product-card"
-      className="animate-landing group relative flex min-h-[270px] w-full flex-col gap-1 rounded border border-primary-light bg-white p-2 shadow-sm transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-primary"
+      className="group relative flex min-h-[270px] w-full animate-landing flex-col gap-1 rounded border border-primary-light bg-white p-2 shadow transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-primary"
     >
       <Link
         aria-label={product.title}

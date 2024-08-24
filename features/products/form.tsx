@@ -1,4 +1,6 @@
 'use client';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setCategory, setSearchText } from '@/features/products/productsSlice';
 import { toCapitalCase } from '@/utils';
@@ -32,7 +34,7 @@ const ProductsForm = () => {
           }
           value={category}
         >
-          <option value="all">All Categories</option>?
+          <option value="all">All Products</option>?
           {categories?.map((category: string, index: number) => (
             <option key={index} value={category}>
               {toCapitalCase(category)}
@@ -40,12 +42,16 @@ const ProductsForm = () => {
           ))}
         </select>
       </div>
-      <div className="inline-flex items-center gap-2 self-start">
-        <label htmlFor="search" className="w-20 sm:hidden">
-          Search:
-        </label>
+      <div className="inline-flex items-center gap-1 self-start bg-white pl-1">
+        <span>
+          <MagnifyingGlassIcon
+            aria-hidden="true"
+            className="text-primary"
+            width={20}
+          />
+        </span>
         <input
-          className="rounded-sm border px-1 py-0.5 text-primary-dark placeholder:text-primary focus:outline-none"
+          className="rounded-sm border-0 p-0.5 text-primary-dark placeholder:text-primary focus:outline-none"
           id="search"
           name="search"
           type="text"
