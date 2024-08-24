@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Product } from '@/types';
+// Used aliases to prevent name conflicts
+import {
+  getCategories as getCategoriesFn,
+  getProducts as getProductsFn,
+  getProductById as getProductByIdFn,
+} from '@/services/products';
 
 export interface ProductsState {
   products: Product[];
@@ -41,50 +47,17 @@ const PRODUCTS_PER_PAGE = 10;
 
 export const getCategories = createAsyncThunk(
   'products/getCategories',
-  async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/products/categories`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch categories');
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
+  getCategoriesFn,
 );
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
-  async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/products`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch products');
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
+  getProductsFn,
 );
 
 export const getProductById = createAsyncThunk(
   'products/getProductById',
-  async (productId: number) => {
-    try {
-      const response = await fetch(`${BASE_URL}/products/${productId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch product');
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
+  getProductByIdFn,
 );
 
 export const productsSlice = createSlice({
