@@ -65,7 +65,7 @@ const Card = ({ product }: CardProps) => {
         </div>
       </Link>
       <button
-        className="absolute right-2 top-2 items-center justify-center rounded-full border bg-primary-dark p-1.5 text-primary-light transition-all duration-200 group-hover:flex xl:hidden xl:hover:bg-white xl:hover:text-primary-dark xl:hover:shadow-md xl:hover:shadow-primary-dark"
+        className="absolute right-2 top-2 items-center justify-center rounded-full border bg-primary-dark p-1.5 text-primary-light transition-all duration-200 group-hover:flex xl:hidden xl:hover:bg-primary-light xl:hover:text-primary-dark xl:hover:shadow-md xl:hover:shadow-primary-dark"
         aria-label={
           itemInCart ? 'Remove product from cart' : 'Add product to cart'
         }
