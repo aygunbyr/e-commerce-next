@@ -1,6 +1,4 @@
 'use client';
-
-import React from 'react';
 import Link from 'next/link';
 import { HomeIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 

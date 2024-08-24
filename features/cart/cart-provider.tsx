@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useReducer } from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
 
 import type { Product, ProductWithQuantity } from '@/types';
 import cartReducer from './cart-reducer';

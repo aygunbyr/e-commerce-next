@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
@@ -85,4 +85,6 @@ const Card = ({ product }: CardProps) => {
   );
 };
 
-export default Card;
+const memoizedCard = memo(Card);
+
+export default memoizedCard;
