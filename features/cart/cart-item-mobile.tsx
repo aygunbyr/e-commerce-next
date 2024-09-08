@@ -3,6 +3,7 @@ import { memo } from 'react';
 import Image from 'next/image';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 
+import Button from '@/components/button';
 import type { ProductWithQuantity } from '@/types';
 import { formatCurrency } from '@/utils';
 import { useCart } from './cart-provider';
@@ -25,9 +26,8 @@ const CartItemMobile = ({ product }: { product: ProductWithQuantity }) => {
         <span>{product.title}</span>
         <span>${formatCurrency(product.price)}</span>
         <div className="inline-flex items-center gap-4">
-          <button
+          <Button
             aria-label={`Decrease quantity of product ${product.title}`}
-            className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
             onClick={() =>
               dispatch({
                 type: 'DECREASE_QUANTITY',
@@ -35,12 +35,11 @@ const CartItemMobile = ({ product }: { product: ProductWithQuantity }) => {
               })
             }
           >
-            <MinusIcon width={24} />
-          </button>
+            <MinusIcon width={20} />
+          </Button>
           <span>{product.quantity} Pcs.</span>
-          <button
+          <Button
             aria-label={`Increase quantity of product ${product.title}`}
-            className="rounded-sm bg-green-700 p-0.5 text-white shadow shadow-green-700 transition-all duration-200 xl:hover:bg-green-600 xl:hover:shadow-green-600"
             onClick={() =>
               dispatch({
                 type: 'INCREASE_QUANTITY',
@@ -48,8 +47,8 @@ const CartItemMobile = ({ product }: { product: ProductWithQuantity }) => {
               })
             }
           >
-            <PlusIcon width={24} />
-          </button>
+            <PlusIcon width={20} />
+          </Button>
         </div>
       </div>
     </div>

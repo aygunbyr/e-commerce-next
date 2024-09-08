@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 import { useCart } from '@/features/cart/cart-provider';
 import { Product } from '@/types';
+import Button from './button';
 
 interface CardProps {
   product: Product;
@@ -64,8 +65,8 @@ const Card = ({ product }: CardProps) => {
           </p>
         </div>
       </Link>
-      <button
-        className="absolute right-2 top-2 items-center justify-center rounded-full border bg-primary-dark p-1.5 text-primary-light transition-all duration-200 group-hover:flex xl:hidden xl:hover:bg-primary-light xl:hover:text-primary-dark xl:hover:shadow-md xl:hover:shadow-primary-dark"
+      <Button
+        className="absolute right-2 top-2 rounded-full p-1.5 group-hover:flex"
         aria-label={
           itemInCart ? 'Remove product from cart' : 'Add product to cart'
         }
@@ -80,7 +81,7 @@ const Card = ({ product }: CardProps) => {
             <ShoppingCartIcon aria-hidden="true" width={20} />
           </>
         )}
-      </button>
+      </Button>
     </div>
   );
 };

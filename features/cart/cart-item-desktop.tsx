@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 
+import Button from '@/components/button';
 import type { ProductWithQuantity } from '@/types';
 import { formatCurrency } from '@/utils';
 import { useCart } from './cart-provider';
@@ -21,16 +22,16 @@ const CartItemDesktop = ({ product }: { product: ProductWithQuantity }) => {
   };
 
   return (
-    <tr className="border border-primary-light text-lg font-bold xl:hover:bg-primary-light">
+    <tr className="text-md border border-primary-light font-bold xl:hover:bg-primary-light">
       <td className="w-32">
         <Link aria-label={product.title} href={`/products/${product.id}`}>
-          <div className="relative h-32 w-32">
+          <div className="relative h-28 w-28">
             <Image
               src={product.image}
               alt={product.title}
               aria-label={product.title}
               fill
-              className="mx-auto object-contain p-4 mix-blend-multiply transition-all duration-200 xl:hover:scale-125"
+              className="mx-auto object-contain p-4 mix-blend-multiply transition-all duration-200 xl:hover:scale-110"
             />
           </div>
         </Link>
@@ -39,9 +40,8 @@ const CartItemDesktop = ({ product }: { product: ProductWithQuantity }) => {
       <td className="w-32 p-4 text-center">${formatCurrency(product.price)}</td>
       <td className="w-60 gap-4 p-4 text-center">
         <div className="inline-flex items-center gap-4">
-          <button
+          <Button
             aria-label={`Decrease quantity of product ${product.title}`}
-            className="rounded-sm bg-red-700 p-0.5 text-white shadow-red-700 transition-all duration-200 xl:hover:bg-red-600 xl:hover:shadow-red-600"
             onClick={() =>
               dispatch({
                 type: 'DECREASE_QUANTITY',
@@ -49,12 +49,11 @@ const CartItemDesktop = ({ product }: { product: ProductWithQuantity }) => {
               })
             }
           >
-            <MinusIcon width={24} />
-          </button>
-          <span>{product.quantity} Pcs.</span>
-          <button
+            <MinusIcon width={20} />
+          </Button>
+          <span className="whitespace-nowrap">{product.quantity} Pcs.</span>
+          <Button
             aria-label={`Increase quantity of product ${product.title}`}
-            className="rounded-sm bg-green-700 p-0.5 text-white shadow shadow-green-700 transition-all duration-200 xl:hover:bg-green-600 xl:hover:shadow-green-600"
             onClick={() =>
               dispatch({
                 type: 'INCREASE_QUANTITY',
@@ -62,19 +61,20 @@ const CartItemDesktop = ({ product }: { product: ProductWithQuantity }) => {
               })
             }
           >
-            <PlusIcon width={24} />
-          </button>
+            <PlusIcon width={20} />
+          </Button>
         </div>
       </td>
-      <td className="w-32 p-4">
-        <button
-          aria-label={`Remove product from cart`}
-          className="min-w-content inline-flex w-full items-center justify-center gap-2 rounded bg-primary-dark p-2 text-white transition-colors duration-200 xl:hover:bg-secondary-light xl:hover:text-primary-dark"
+      <td className="px-2 py-1">
+        <Button
+          aria-label="Remove product from cart"
           onClick={() => removeItem(product)}
         >
-          <TrashIcon width={24} aria-hidden="true" />
-          Remove
-        </button>
+          <>
+            <TrashIcon width={20} aria-hidden="true" />
+            <span className="text-[16px] font-[400]">Remove</span>
+          </>
+        </Button>
       </td>
     </tr>
   );

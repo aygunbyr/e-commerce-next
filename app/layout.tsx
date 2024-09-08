@@ -22,10 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} text-primary-dark bg-slate-50`}>
+      <body className={`${inter.className} bg-slate-50 text-primary-dark`}>
         <ClientProvider>
           <Header />
-          <main className="container mb-4 max-xl:w-96">{children}</main>
+          <main className="container mb-4 min-h-screen max-xl:w-96">
+            {children}
+          </main>
           <Footer />
         </ClientProvider>
       </body>

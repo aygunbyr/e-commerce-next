@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useEffect, useMemo } from 'react';
 import { getProductById } from '@/features/products/productsSlice';
 import Loading from '../../components/loading';
+import Button from '@/components/button';
 
 interface ProductDetailProps {
   productId: number;
@@ -69,7 +70,7 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
               fill
             />
           </div>
-          <div className="flex flex-1 flex-col gap-5">
+          <div className="flex flex-1 flex-col items-start gap-5">
             <h2 className="text-3xl">{product.title}</h2>
             <p className="text-2xl font-bold">
               ${formatCurrency(product.price)}
@@ -80,21 +81,17 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
               Rating: <span className="font-bold">{product.rating.rate}</span> (
               {product.rating.count} votes)
             </p>
-            <button
-              aria-label="Go to cart page"
-              className="mx-2 mb-2 mt-auto flex w-80 items-center justify-center gap-1 rounded-md border border-primary-dark bg-primary-dark p-1 text-sm font-bold uppercase text-primary-light shadow-sm shadow-primary-dark transition-all duration-200 xl:hover:border-secondary xl:hover:bg-secondary"
-              onClick={toggleCartAction}
-            >
+            <Button aria-label="Go to cart page" onClick={toggleCartAction}>
               {itemInCart ? (
                 <>
-                  <TrashIcon aria-hidden="true" width={24} /> Remove from Cart
+                  <TrashIcon aria-hidden="true" width={20} /> Remove from Cart
                 </>
               ) : (
                 <>
-                  <ShoppingCartIcon aria-hidden="true" width={24} /> Add to Cart
+                  <ShoppingCartIcon aria-hidden="true" width={20} /> Add to Cart
                 </>
               )}
-            </button>
+            </Button>
           </div>
         </div>
       )}

@@ -18,7 +18,7 @@ const ProductsForm = () => {
   return (
     <form
       id="filter-form"
-      className="mt-1 flex flex-col items-center justify-between gap-4 rounded-sm bg-primary-light p-2 text-lg text-primary-dark sm:flex-row sm:gap-0"
+      className="mt-1 flex flex-col items-center justify-between gap-3 rounded-md bg-primary-light px-2 py-1 text-lg text-primary-dark sm:flex-row sm:gap-0"
       onSubmit={handleSubmit}
     >
       <div className="inline-flex items-center gap-2 self-start">

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setCurrentPage } from '@/features/products/productsSlice';
+import Button from '@/components/button';
 
 const ProductsPagination = () => {
   const dispatch = useAppDispatch();
@@ -31,50 +32,41 @@ const ProductsPagination = () => {
   };
 
   return (
-    <div className="mb-4 mt-1 flex items-center justify-center rounded-sm bg-primary-light p-2 text-lg text-primary-dark">
-      <button
+    <div className="text-md mx-auto mb-4 mt-2 flex items-center justify-center gap-3 rounded-md bg-primary-light px-2 py-1">
+      <Button
         disabled={!hasPreviousPage}
         onClick={gotoPreviousPage}
-        className={`mr-4 rounded px-3 py-0.5 transition-all duration-200 ${
-          !hasPreviousPage
-            ? 'border border-primary bg-transparent'
-            : 'bg-primary-dark text-primary-light'
+        className={`px-2 ${
+          !hasPreviousPage &&
+          'border border-primary bg-transparent text-primary'
         }`}
       >
         &larr;
-      </button>
+      </Button>
 
       {hasPreviousPage && (
-        <button
-          onClick={gotoPreviousPage}
-          className="mr-4 rounded bg-primary-dark px-2 py-0.5 text-primary-light transition-all duration-200"
-        >
+        <Button className="px-2" onClick={gotoPreviousPage}>
           {currentPage - 1}
-        </button>
+        </Button>
       )}
 
-      <p className="mr-4 font-bold">{currentPage}</p>
+      <p className="font-bold">{currentPage}</p>
 
       {hasNextPage && (
-        <button
-          onClick={gotoNextPage}
-          className="mr-4 rounded bg-primary-dark px-2 py-0.5 text-primary-light transition-all duration-200"
-        >
+        <Button className="px-2" onClick={gotoNextPage}>
           {currentPage + 1}
-        </button>
+        </Button>
       )}
 
-      <button
+      <Button
         disabled={!hasNextPage}
         onClick={gotoNextPage}
-        className={`mr-4 rounded px-3 py-0.5 transition-all duration-200 ${
-          !hasNextPage
-            ? 'border border-primary bg-transparent'
-            : 'bg-primary-dark text-primary-light'
+        className={`px-2 ${
+          !hasNextPage && 'border border-primary bg-transparent text-primary'
         }`}
       >
         &rarr;
-      </button>
+      </Button>
     </div>
   );
 };
