@@ -3,7 +3,11 @@
 import { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import {
+  ShoppingCartIcon,
+  PlusIcon,
+  MinusIcon,
+} from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/solid';
 import { toast } from 'react-toastify';
 
@@ -66,21 +70,20 @@ const Card = ({ product }: CardProps) => {
         </div>
       </Link>
       <Button
-        className="absolute right-2 top-2 hidden rounded-full p-1.5 group-hover:flex"
+        className="absolute right-2 top-2 hidden gap-0 rounded-full p-1.5 group-hover:inline-flex"
         aria-label={
           itemInCart ? 'Remove product from cart' : 'Add product to cart'
         }
         onClick={toggleCartAction}
       >
-        {itemInCart ? (
-          <>
-            <ShoppingCartIconSolid aria-hidden="true" width={20} />
-          </>
-        ) : (
-          <>
-            <ShoppingCartIcon aria-hidden="true" width={20} />
-          </>
-        )}
+        <>
+          <ShoppingCartIconSolid aria-hidden="true" width={20} />
+          {itemInCart ? (
+            <MinusIcon aria-hidden="true" width={20} />
+          ) : (
+            <PlusIcon aria-hidden="true" width={20} />
+          )}
+        </>
       </Button>
     </div>
   );
