@@ -1,5 +1,8 @@
 'use client';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import {
+  MagnifyingGlassIcon,
+  ShoppingBagIcon,
+} from '@heroicons/react/24/outline';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setCategory, setSearchText } from '@/features/products/productsSlice';
@@ -22,11 +25,12 @@ const ProductsForm = () => {
       onSubmit={handleSubmit}
     >
       <div className="inline-flex items-center gap-2 self-start">
-        <label htmlFor="filter-select" className="w-20 min-w-fit">
+        <label htmlFor="filter-select" className="sr-only">
           Filter by:
         </label>
+        <ShoppingBagIcon aria-hidden="true" width={20} />
         <select
-          className="rounded-sm border p-1 text-primary-dark focus:outline-none"
+          className="rounded-sm border border-transparent p-1 text-primary-dark focus:outline-none"
           id="filter-select"
           name="filter"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
@@ -42,16 +46,16 @@ const ProductsForm = () => {
           ))}
         </select>
       </div>
-      <div className="inline-flex items-center gap-1 self-start bg-white pl-1">
+
+      <div className="inline-flex items-center gap-1 self-start">
+        <label htmlFor="search" className="sr-only">
+          Search:
+        </label>
         <span>
-          <MagnifyingGlassIcon
-            aria-hidden="true"
-            className="text-primary"
-            width={20}
-          />
+          <MagnifyingGlassIcon aria-hidden="true" width={20} />
         </span>
         <input
-          className="rounded-sm border-0 p-0.5 text-primary-dark placeholder:text-primary focus:outline-none"
+          className="rounded-sm border border-transparent bg-white p-0.5 text-primary-dark placeholder:text-primary focus:outline-none"
           id="search"
           name="search"
           type="text"
