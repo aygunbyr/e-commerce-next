@@ -41,7 +41,9 @@ const Card = ({ product }: CardProps) => {
   };
 
   const handleImageLoad = () => {
-    setIsLoadingImage(false);
+    setTimeout(() => {
+      setIsLoadingImage(false);
+    }, 500);
   };
 
   return (

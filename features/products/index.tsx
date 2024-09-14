@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import ProductsForm from './form';
@@ -15,6 +15,7 @@ import {
   setCurrentPage,
   setSearchText,
 } from '@/features/products/productsSlice';
+import Loading from '@/components/loading';
 
 const Products = () => {
   const router = useRouter();
