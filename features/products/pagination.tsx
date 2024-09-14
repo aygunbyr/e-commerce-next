@@ -38,7 +38,7 @@ const ProductsPagination = () => {
         onClick={gotoPreviousPage}
         className={`px-2 ${
           !hasPreviousPage &&
-          'border border-primary bg-transparent text-primary'
+          'border border-primary bg-transparent text-primary xl:hover:shadow-none'
         }`}
       >
         &larr;
@@ -62,7 +62,8 @@ const ProductsPagination = () => {
         disabled={!hasNextPage}
         onClick={gotoNextPage}
         className={`px-2 ${
-          !hasNextPage && 'border border-primary bg-transparent text-primary'
+          !hasNextPage &&
+          'border border-primary bg-transparent text-primary xl:hover:shadow-none'
         }`}
       >
         &rarr;
