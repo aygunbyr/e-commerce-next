@@ -30,7 +30,7 @@ const ProductsForm = () => {
         </label>
         <ShoppingBagIcon aria-hidden="true" width={20} />
         <select
-          className="rounded-sm border border-transparent p-1 text-primary-dark focus:outline-none"
+          className="rounded-sm border border-transparent px-1 py-0.5 text-primary-dark focus:outline-none"
           id="filter-select"
           name="filter"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
@@ -47,7 +47,7 @@ const ProductsForm = () => {
         </select>
       </div>
 
-      <div className="inline-flex items-center gap-1 self-start">
+      <div className="inline-flex items-center gap-2 self-start">
         <label htmlFor="search" className="sr-only">
           Search:
         </label>
@@ -55,7 +55,7 @@ const ProductsForm = () => {
           <MagnifyingGlassIcon aria-hidden="true" width={20} />
         </span>
         <input
-          className="rounded-sm border border-transparent bg-white p-0.5 text-primary-dark placeholder:text-primary focus:outline-none"
+          className="rounded-sm border border-transparent bg-white px-1 text-primary-dark placeholder:text-primary focus:outline-none"
           id="search"
           name="search"
           type="text"
