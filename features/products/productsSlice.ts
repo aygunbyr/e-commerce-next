@@ -21,6 +21,7 @@ export interface ProductsState {
   filteredProducts: Product[];
   category: string;
   searchText: string;
+  searchBarText: string;
   currentPage: number;
   numberOfPages: number;
 }
@@ -38,6 +39,7 @@ const initialState: ProductsState = {
   filteredProducts: [],
   category: 'all',
   searchText: '',
+  searchBarText: '',
   currentPage: 1,
   numberOfPages: 1,
 };
@@ -107,7 +109,10 @@ export const productsSlice = createSlice({
     setSearchText: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
     },
-    setCurrentPage: (state, action) => {
+    setSearchBarText: (state, action: PayloadAction<string>) => {
+      state.searchBarText = action.payload;
+    },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
     },
   },
@@ -164,7 +169,12 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { filterProducts, setCategory, setSearchText, setCurrentPage } =
-  productsSlice.actions;
+export const {
+  filterProducts,
+  setCategory,
+  setSearchText,
+  setSearchBarText,
+  setCurrentPage,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;
