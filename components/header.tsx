@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-10 bg-primary-dark bg-opacity-95 shadow-sm shadow-primary-dark">
       <div className="container max-xl:w-96">
-        <div className="flex flex-col items-center justify-between space-x-6 px-1 py-1 sm:flex-row">
+        <div className="flex flex-col items-center justify-between px-1 py-1 sm:flex-row sm:gap-6">
           <Link
             href="/"
             aria-label="e-commerce"
@@ -22,7 +22,9 @@ const Header = () => {
             e-commerce
           </Link>
           {/* Search */}
-          <Search />
+          <div className="inline-flex flex-1 items-center max-sm:order-3 max-sm:w-full sm:max-w-[600px]">
+            <Search />
+          </div>
           {/* Navigation Bar */}
           <nav className="my-2 text-xl text-secondary-light sm:my-0">
             <ul className="ml-5 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-6">
