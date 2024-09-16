@@ -1,8 +1,9 @@
 'use client';
 import Link from 'next/link';
-import { HomeIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 
 import { useCart } from '@/features/cart/cart-provider';
+import Search from '@/features/products/search';
 
 const Header = () => {
   const { state } = useCart();
@@ -10,9 +11,9 @@ const Header = () => {
   const itemCount = state.products.length;
 
   return (
-    <header className="sticky top-0 z-10 bg-primary-dark bg-opacity-95 text-secondary-light shadow-sm shadow-primary-dark">
+    <header className="sticky top-0 z-10 bg-primary-dark bg-opacity-95 shadow-sm shadow-primary-dark">
       <div className="container max-xl:w-96">
-        <div className="flex flex-col items-center space-x-6 px-1 py-1 sm:flex-row">
+        <div className="flex flex-col items-center justify-between space-x-6 px-1 py-1 sm:flex-row">
           <Link
             href="/"
             aria-label="e-commerce"
@@ -20,18 +21,11 @@ const Header = () => {
           >
             e-commerce
           </Link>
-          <nav className="my-2 flex-1 text-xl sm:my-0">
+          {/* Search */}
+          <Search />
+          {/* Navigation Bar */}
+          <nav className="my-2 text-xl text-secondary-light sm:my-0">
             <ul className="ml-5 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-6">
-              <li className="inline-flex">
-                <Link
-                  className="inline-flex items-center justify-center gap-1"
-                  href="/"
-                  aria-label="Go to home page"
-                >
-                  <HomeIcon width={24} />
-                  <span className="text-lg font-medium">Home</span>
-                </Link>
-              </li>
               <li className="inline-flex">
                 <Link
                   className="inline-flex items-center justify-center gap-1"

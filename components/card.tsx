@@ -3,11 +3,7 @@
 import { memo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  ShoppingCartIcon,
-  PlusIcon,
-  MinusIcon,
-} from '@heroicons/react/24/outline';
+import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/solid';
 import { toast } from 'react-toastify';
 
