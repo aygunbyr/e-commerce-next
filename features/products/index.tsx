@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import ProductsForm from './form';
@@ -10,30 +10,41 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   filterByCategory,
   filterBySearchText,
-  getCategories,
-  getProducts,
   paginateProducts,
-  resetFilter,
-  setCategory,
+  setFilteredProducts,
+  setSelectedCategory,
   setCurrentPage,
   setSearchText,
 } from '@/features/products/productsSlice';
+import { useQuery } from '@tanstack/react-query';
+import { Product } from '@/types';
+import { getCategories, getProducts } from '@/services/products';
 
 const Products = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
+  const { selectedCategory, currentPage, searchText } = useAppSelector(
+    (state) => state.products,
+  );
+
   const {
-    categories,
-    category,
-    currentPage,
-    products,
-    filteredProducts,
-    searchText,
-  } = useAppSelector((state) => state.products);
+    data: products,
+    error,
+    isError,
+  } = useQuery<Product[]>({
+    queryKey: ['products'],
+    queryFn: getProducts,
+  });
+
+  const { data: categories } = useQuery<string[]>({
+    queryKey: ['categories'],
+    queryFn: getCategories,
+  });
 
   const filterProducts = () => {
-    dispatch(resetFilter());
+    if (!products || products.length === 0) return;
+    dispatch(setFilteredProducts(products));
     dispatch(filterByCategory());
     dispatch(filterBySearchText());
     dispatch(paginateProducts());
@@ -44,7 +55,7 @@ const Products = () => {
     const searchTextParam = searchParams.get('search');
     const pageParam = searchParams.get('page');
     if (categoryParam) {
-      dispatch(setCategory(categoryParam));
+      dispatch(setSelectedCategory(categoryParam));
     }
     if (searchTextParam) {
       dispatch(setSearchText(searchTextParam));
@@ -52,12 +63,7 @@ const Products = () => {
     if (pageParam) {
       dispatch(setCurrentPage(Number.parseInt(pageParam)));
     }
-    const getFilteredProducts = async () => {
-      if (categories.length === 0) await dispatch(getCategories());
-      if (products.length === 0) await dispatch(getProducts());
-      filterProducts();
-    };
-    getFilteredProducts();
+    filterProducts();
   }, []);
 
   useEffect(() => {
@@ -65,8 +71,8 @@ const Products = () => {
     if (currentPage !== 1) {
       params.set('page', currentPage.toString());
     }
-    if (category !== 'all') {
-      params.set('category', category);
+    if (selectedCategory !== 'all') {
+      params.set('category', selectedCategory);
     }
     if (searchText) {
       params.set('search', searchText);
@@ -74,7 +80,11 @@ const Products = () => {
     const newUrl = `${window?.location.pathname}?${params.toString()}`;
     router.replace(newUrl);
     filterProducts();
-  }, [category, currentPage, searchText]);
+  }, [selectedCategory, currentPage, searchText, products, categories]);
+
+  if (isError) {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <>

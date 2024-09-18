@@ -36,11 +36,13 @@ const Header = () => {
                 >
                   <ShoppingCartIcon width={24} />
                   <span className="text-lg font-medium">Cart</span>
-                  {itemCount > 0 && (
-                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-light text-base font-bold text-primary-dark">
-                      {itemCount}
-                    </span>
-                  )}
+                  <span
+                    className={`inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-light text-base font-bold text-primary-dark ${
+                      itemCount > 0 ? 'visible' : 'invisible'
+                    }`}
+                  >
+                    {itemCount}
+                  </span>
                 </Link>
               </li>
             </ul>

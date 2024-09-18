@@ -5,18 +5,37 @@ import {
 } from '@heroicons/react/24/outline';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setCategory, setSearchText } from '@/features/products/productsSlice';
+import {
+  setSelectedCategory,
+  setSearchText,
+} from '@/features/products/productsSlice';
 import { toCapitalCase } from '@/utils';
+import { useQuery } from '@tanstack/react-query';
+import { getCategories } from '@/services/products';
 
 const ProductsForm = () => {
-  const { categories, category, searchText } = useAppSelector(
+  const { selectedCategory, searchText } = useAppSelector(
     (state) => state.products,
   );
+
+  const {
+    data: categories,
+    error,
+    isError,
+  } = useQuery<string[]>({
+    queryKey: ['categories'],
+    queryFn: getCategories,
+  });
+
   const dispatch = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
+
+  if (isError) {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <form
@@ -34,9 +53,9 @@ const ProductsForm = () => {
           id="filter-select"
           name="filter"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            dispatch(setCategory(event.target.value))
+            dispatch(setSelectedCategory(event.target.value))
           }
-          value={category}
+          value={selectedCategory}
         >
           <option value="all">All Products</option>?
           {categories?.map((category: string, index: number) => (

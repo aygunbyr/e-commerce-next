@@ -1,25 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Product } from '@/types';
-// Used aliases to prevent name conflicts
-import {
-  getCategories as getCategoriesFn,
-  getProducts as getProductsFn,
-  getProductById as getProductByIdFn,
-} from '@/services/products';
 
 export interface ProductsState {
-  products: Product[];
-  productsError: any;
-  productsLoading: boolean;
-  categories: string[];
-  categoriesError: any;
-  categoriesLoading: boolean;
   product: Product | null;
   productError: any;
   productLoading: boolean;
   filteredProducts: Product[];
-  category: string;
+  selectedCategory: string;
   searchText: string;
   searchBarText: string;
   currentPage: number;
@@ -27,17 +15,11 @@ export interface ProductsState {
 }
 
 const initialState: ProductsState = {
-  products: [],
-  productsError: null,
-  productsLoading: false,
-  categories: [],
-  categoriesError: null,
-  categoriesLoading: false,
   product: null,
   productError: null,
   productLoading: false,
   filteredProducts: [],
-  category: 'all',
+  selectedCategory: 'all',
   searchText: '',
   searchBarText: '',
   currentPage: 1,
@@ -46,34 +28,19 @@ const initialState: ProductsState = {
 
 const PRODUCTS_PER_PAGE = 10;
 
-export const getCategories = createAsyncThunk(
-  'products/getCategories',
-  getCategoriesFn,
-);
-
-export const getProducts = createAsyncThunk(
-  'products/getProducts',
-  getProductsFn,
-);
-
-export const getProductById = createAsyncThunk(
-  'products/getProductById',
-  getProductByIdFn,
-);
-
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    resetFilter: (state) => {
-      state.filteredProducts = state.products;
+    setFilteredProducts: (state, action: PayloadAction<Product[]>) => {
+      state.filteredProducts = action.payload;
     },
     filterByCategory: (state) => {
       state.filteredProducts =
-        state.category === 'all'
-          ? state.products
-          : state.products.filter(
-              (product) => product.category === state.category,
+        state.selectedCategory === 'all'
+          ? state.filteredProducts
+          : state.filteredProducts.filter(
+              (product) => product.category === state.selectedCategory,
             );
     },
     filterBySearchText: (state) => {
@@ -105,8 +72,8 @@ export const productsSlice = createSlice({
 
       state.filteredProducts = filteredByPageNumber;
     },
-    setCategory: (state, action: PayloadAction<string>) => {
-      state.category = action.payload;
+    setSelectedCategory: (state, action: PayloadAction<string>) => {
+      state.selectedCategory = action.payload;
       if (state.filteredProducts.length > 0) {
         state.currentPage = 1;
       }
@@ -121,65 +88,15 @@ export const productsSlice = createSlice({
       state.currentPage = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getCategories.pending, (state, action) => {
-        state.categoriesLoading = true;
-      })
-      .addCase(
-        getCategories.fulfilled,
-        (state, action: PayloadAction<string[]>) => {
-          state.categories = action.payload;
-          state.categoriesError = null;
-          state.categoriesLoading = false;
-        },
-      )
-      .addCase(getCategories.rejected, (state, action) => {
-        state.categories = [];
-        state.categoriesError = action.error;
-        state.categoriesLoading = false;
-      })
-      .addCase(getProducts.pending, (state, action) => {
-        state.productsLoading = true;
-      })
-      .addCase(
-        getProducts.fulfilled,
-        (state, action: PayloadAction<Product[]>) => {
-          state.products = action.payload;
-          state.productsError = null;
-          state.productsLoading = false;
-        },
-      )
-      .addCase(getProducts.rejected, (state, action) => {
-        state.products = [];
-        state.productsError = action.error;
-        state.productsLoading = false;
-      })
-      .addCase(getProductById.pending, (state, action) => {
-        state.productLoading = true;
-      })
-      .addCase(
-        getProductById.fulfilled,
-        (state, action: PayloadAction<Product>) => {
-          state.product = action.payload;
-          state.productError = null;
-          state.productLoading = false;
-        },
-      )
-      .addCase(getProductById.rejected, (state, action) => {
-        state.product = null;
-        state.productError = action.error;
-        state.productLoading = false;
-      });
-  },
+  extraReducers: (builder) => {},
 });
 
 export const {
-  setCategory,
+  setSelectedCategory,
   setSearchText,
   setSearchBarText,
   setCurrentPage,
-  resetFilter,
+  setFilteredProducts,
   filterByCategory,
   filterBySearchText,
   paginateProducts,

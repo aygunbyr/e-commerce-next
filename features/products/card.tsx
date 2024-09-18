@@ -11,7 +11,6 @@ import { useCart } from '@/features/cart/cart-provider';
 import { Product } from '@/types';
 import Button from '../../components/button';
 import CardSkeleton from './card-skeleton';
-
 interface CardProps {
   product: Product;
 }

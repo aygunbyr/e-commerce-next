@@ -6,30 +6,29 @@ import { toast } from 'react-toastify';
 
 import { useCart } from '@/features/cart/cart-provider';
 import { formatCurrency } from '@/utils';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { useEffect, useMemo } from 'react';
-import { getProductById } from '@/features/products/productsSlice';
+import { useMemo } from 'react';
 import Loading from '../../components/loading';
 import Button from '@/components/button';
+import { Product } from '@/types';
+import { useQuery } from '@tanstack/react-query';
+import { getProductById } from '@/services/products';
 
 interface ProductDetailProps {
   productId: number;
 }
 
 const ProductDetail = ({ productId }: ProductDetailProps) => {
-  const { state, dispatch: contextDispatch } = useCart();
-  const dispatch = useAppDispatch();
+  const { state, dispatch } = useCart();
 
-  const { product, productError, productLoading } = useAppSelector(
-    (state) => state.products,
-  );
-
-  useEffect(() => {
-    const getThisProduct = async () => {
-      await dispatch(getProductById(productId));
-    };
-    getThisProduct();
-  }, []);
+  const {
+    data: product,
+    error,
+    isError,
+    isLoading,
+  } = useQuery<Product>({
+    queryKey: ['product', productId],
+    queryFn: () => getProductById(productId),
+  });
 
   const itemInCart = useMemo(
     () => state.products.some((item) => item.id === product?.id),
@@ -39,23 +38,23 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
   const toggleCartAction = () => {
     if (!product) return;
     if (itemInCart) {
-      contextDispatch({
+      dispatch({
         type: 'REMOVE_ITEM',
         payload: { id: product?.id },
       });
       toast.error(`${product?.title} removed from cart 🛒`);
     } else if (!itemInCart) {
-      contextDispatch({ type: 'ADD_ITEM', payload: product });
+      dispatch({ type: 'ADD_ITEM', payload: product });
       toast.success(`${product?.title} added to cart 🛒`);
     }
   };
 
-  if (productLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 
-  if (productError) {
-    return <p>Failed fetching product. Error: {productError}</p>;
+  if (isError) {
+    return <p>Failed fetching product. Error: {error.message}</p>;
   }
 
   return (

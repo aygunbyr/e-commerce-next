@@ -3,15 +3,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setSearchBarText } from './productsSlice';
+import { useQuery } from '@tanstack/react-query';
+import { getProducts } from '@/services/products';
+import { Product } from '@/types';
 
 export default function Search() {
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const { products, searchBarText } = useAppSelector((state) => state.products);
+  const { searchBarText } = useAppSelector((state) => state.products);
+
+  const { data: products } = useQuery<Product[]>({
+    queryKey: ['products'],
+    queryFn: getProducts,
+  });
+
   const filteredProducts = useMemo(
     () =>
-      products.filter((product) =>
+      products?.filter((product) =>
         product.title.toLowerCase().includes(searchBarText.toLowerCase()),
-      ),
+      ) || [],
     [products, searchBarText],
   );
   const dispatch = useAppDispatch();

@@ -1,13 +1,19 @@
 import { useAppSelector } from '@/redux/hooks';
 import Card from '@/features/products/card';
 import Loading from '@/components/loading';
+import { useQuery } from '@tanstack/react-query';
+import { Product } from '@/types';
+import { getProducts } from '@/services/products';
 
 const ProductsList = () => {
-  const { filteredProducts, productsLoading, productsError } = useAppSelector(
-    (state) => state.products,
-  );
+  const { filteredProducts } = useAppSelector((state) => state.products);
 
-  if (productsLoading) {
+  const { error, isError, isLoading } = useQuery<Product[]>({
+    queryKey: ['products'],
+    queryFn: getProducts,
+  });
+
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -26,8 +32,8 @@ const ProductsList = () => {
         })
       ) : (
         <p className="my-4 w-full text-center text-xl">
-          {productsError
-            ? 'An error occured while getting products'
+          {isError
+            ? `An error occured: ${error}`
             : 'No product found matching these criteria'}
         </p>
       )}
