@@ -44,7 +44,6 @@ const initialState: ProductsState = {
   numberOfPages: 1,
 };
 
-const BASE_URL = 'https://fakestoreapi.com';
 const PRODUCTS_PER_PAGE = 10;
 
 export const getCategories = createAsyncThunk(
@@ -66,23 +65,29 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    filterProducts: (state) => {
-      if (state.products.length === 0) return;
-      const filteredByCategory =
+    resetFilter: (state) => {
+      state.filteredProducts = state.products;
+    },
+    filterByCategory: (state) => {
+      state.filteredProducts =
         state.category === 'all'
           ? state.products
           : state.products.filter(
               (product) => product.category === state.category,
             );
-
-      const filteredBySearchText = !state.searchText
-        ? filteredByCategory
-        : filteredByCategory.filter(({ title }) =>
-            title.toLowerCase().includes(state.searchText.toLowerCase()),
+    },
+    filterBySearchText: (state) => {
+      state.filteredProducts = !state.searchText
+        ? state.filteredProducts
+        : state.filteredProducts.filter((product) =>
+            product.title
+              .toLowerCase()
+              .includes(state.searchText.toLowerCase()),
           );
-
+    },
+    paginateProducts: (state) => {
       const numberOfPagesCalculated = Math.ceil(
-        filteredBySearchText.length / PRODUCTS_PER_PAGE,
+        state.filteredProducts.length / PRODUCTS_PER_PAGE,
       );
 
       state.numberOfPages = numberOfPagesCalculated;
@@ -90,13 +95,13 @@ export const productsSlice = createSlice({
       const startIndex = (state.currentPage - 1) * PRODUCTS_PER_PAGE;
       const endIndex = Math.min(
         startIndex + PRODUCTS_PER_PAGE,
-        filteredBySearchText.length,
+        state.filteredProducts.length,
       );
 
       const filteredByPageNumber =
         state.numberOfPages === 1
-          ? filteredBySearchText
-          : filteredBySearchText.slice(startIndex, endIndex);
+          ? state.filteredProducts
+          : state.filteredProducts.slice(startIndex, endIndex);
 
       state.filteredProducts = filteredByPageNumber;
     },
@@ -170,11 +175,14 @@ export const productsSlice = createSlice({
 });
 
 export const {
-  filterProducts,
   setCategory,
   setSearchText,
   setSearchBarText,
   setCurrentPage,
+  resetFilter,
+  filterByCategory,
+  filterBySearchText,
+  paginateProducts,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

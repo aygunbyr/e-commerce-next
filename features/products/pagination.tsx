@@ -1,6 +1,9 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setCurrentPage } from '@/features/products/productsSlice';
+import {
+  setCurrentPage,
+  paginateProducts,
+} from '@/features/products/productsSlice';
 import Button from '@/components/button';
 
 const ProductsPagination = () => {
@@ -8,6 +11,10 @@ const ProductsPagination = () => {
   const { currentPage, numberOfPages } = useAppSelector(
     (state) => state.products,
   );
+
+  useEffect(() => {
+    dispatch(paginateProducts());
+  }, [currentPage]);
 
   const hasPreviousPage = useMemo<boolean>(
     () => currentPage > 1,

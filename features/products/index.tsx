@@ -8,21 +8,36 @@ import ProductsList from './list';
 import ProductsPagination from './pagination';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
-  filterProducts,
+  filterByCategory,
+  filterBySearchText,
   getCategories,
   getProducts,
+  paginateProducts,
+  resetFilter,
   setCategory,
   setCurrentPage,
   setSearchText,
 } from '@/features/products/productsSlice';
-import Loading from '@/components/loading';
 
 const Products = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
-  const { categories, category, currentPage, products, searchText } =
-    useAppSelector((state) => state.products);
+  const {
+    categories,
+    category,
+    currentPage,
+    products,
+    filteredProducts,
+    searchText,
+  } = useAppSelector((state) => state.products);
+
+  const filterProducts = () => {
+    dispatch(resetFilter());
+    dispatch(filterByCategory());
+    dispatch(filterBySearchText());
+    dispatch(paginateProducts());
+  };
 
   useEffect(() => {
     const categoryParam = searchParams.get('category');
@@ -35,12 +50,12 @@ const Products = () => {
       dispatch(setSearchText(searchTextParam));
     }
     if (pageParam) {
-      dispatch(setCurrentPage(parseInt(pageParam)));
+      dispatch(setCurrentPage(Number.parseInt(pageParam)));
     }
     const getFilteredProducts = async () => {
       if (categories.length === 0) await dispatch(getCategories());
       if (products.length === 0) await dispatch(getProducts());
-      dispatch(filterProducts());
+      filterProducts();
     };
     getFilteredProducts();
   }, []);
@@ -58,7 +73,7 @@ const Products = () => {
     }
     const newUrl = `${window?.location.pathname}?${params.toString()}`;
     router.replace(newUrl);
-    dispatch(filterProducts());
+    filterProducts();
   }, [category, currentPage, searchText]);
 
   return (

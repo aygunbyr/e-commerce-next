@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/redux/hooks';
-import Card from '@/components/card';
+import Card from '@/features/products/card';
 import Loading from '@/components/loading';
 
 const ProductsList = () => {

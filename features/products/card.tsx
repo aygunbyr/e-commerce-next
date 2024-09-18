@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 import { useCart } from '@/features/cart/cart-provider';
 import { Product } from '@/types';
-import Button from './button';
+import Button from '../../components/button';
 import CardSkeleton from './card-skeleton';
 
 interface CardProps {
