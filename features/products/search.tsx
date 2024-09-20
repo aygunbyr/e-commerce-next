@@ -67,12 +67,15 @@ export default function Search() {
                 className="inline-flex w-full cursor-pointer items-center gap-2 p-2 hover:bg-gray-100"
                 onClick={() => setIsFocused(false)}
               >
-                <Image
-                  src={product.image}
-                  width={20}
-                  height={20}
-                  alt={product.title}
-                />
+                <div className="relative h-8 w-8">
+                  <Image
+                    className="object-contain mix-blend-multiply"
+                    fill
+                    src={product.image}
+                    alt={product.title}
+                    aria-label={product.title}
+                  />
+                </div>
                 <span className="line-clamp-1">{product.title}</span>
               </Link>
             ))}
