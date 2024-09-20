@@ -45,7 +45,7 @@ const Cart = () => {
         <>
           <div className="mt-3 hidden overflow-auto rounded-lg shadow md:block">
             <table className="mb-4 w-full border border-primary-dark text-left">
-              <thead className="bg-primary-dark text-primary-light">
+              <thead className="bg-primary-dark text-gray-100">
                 <tr className="border-primary-dark text-center">
                   <th className="w-32 p-4">Photo</th>
                   <th className="w-100 p-4 text-start">Product</th>

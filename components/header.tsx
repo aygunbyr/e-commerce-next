@@ -17,7 +17,7 @@ const Header = () => {
           <Link
             href="/"
             aria-label="e-commerce"
-            className="text-3xl font-bold text-primary-light"
+            className="text-3xl font-bold text-gray-100"
           >
             e-commerce
           </Link>
@@ -37,7 +37,7 @@ const Header = () => {
                   <ShoppingCartIcon width={24} />
                   <span className="text-lg font-medium">Cart</span>
                   <span
-                    className={`inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-light text-base font-bold text-primary-dark ${
+                    className={`inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-base font-bold text-primary-dark ${
                       itemCount > 0 ? 'visible' : 'invisible'
                     }`}
                   >

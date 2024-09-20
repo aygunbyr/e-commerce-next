@@ -5,7 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const Button: React.FC<ButtonProps> = ({ children, className, ...props }) => {
   const defaultClasses =
-    'min-w-content inline-flex items-center justify-center gap-1 rounded bg-primary-dark py-1 px-2 text-primary-light transition-all duration-200 xl:hover:shadow xl:hover:shadow-primary xl:hover:bg-secondary';
+    'min-w-content inline-flex items-center justify-center gap-1 rounded bg-primary-dark py-1 px-2 text-gray-100 transition-all duration-200 xl:hover:shadow xl:hover:shadow-primary xl:hover:bg-secondary';
   const disabledButtonStyle =
     'border border-primary bg-transparent px-2 text-primary hover:xl:bg-transparent xl:hover:shadow-none';
 

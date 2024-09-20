@@ -22,7 +22,7 @@ const CartItemDesktop = ({ product }: { product: ProductWithQuantity }) => {
   };
 
   return (
-    <tr className="text-md border border-primary-light font-bold xl:hover:bg-primary-light">
+    <tr className="text-md border border-gray-100 font-bold xl:hover:bg-gray-200">
       <td className="w-32">
         <Link aria-label={product.title} href={`/products/${product.id}`}>
           <div className="relative h-28 w-28">

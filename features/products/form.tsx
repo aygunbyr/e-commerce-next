@@ -40,7 +40,7 @@ const ProductsForm = () => {
   return (
     <form
       id="filter-form"
-      className="mt-1 flex flex-col items-center justify-between gap-3 rounded-md bg-primary-light px-2 py-1 text-lg text-primary-dark sm:flex-row sm:gap-0"
+      className="mt-1 flex flex-col items-center justify-between gap-3 rounded-md bg-primary-light px-2 py-1 text-lg sm:flex-row sm:gap-0"
       onSubmit={handleSubmit}
     >
       <div className="inline-flex items-center gap-2 self-start">
@@ -49,7 +49,7 @@ const ProductsForm = () => {
         </label>
         <ShoppingBagIcon aria-hidden="true" width={20} />
         <select
-          className="rounded-sm border border-transparent px-1 py-0.5 text-primary-dark focus:outline-none"
+          className="rounded-sm border border-transparent px-1 py-0.5 focus:outline-none"
           id="filter-select"
           name="filter"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
@@ -74,7 +74,7 @@ const ProductsForm = () => {
           <MagnifyingGlassIcon aria-hidden="true" width={20} />
         </span>
         <input
-          className="rounded-sm border border-transparent bg-white px-1 text-primary-dark placeholder:text-primary focus:outline-none"
+          className="rounded-sm border border-transparent bg-white px-1 focus:outline-none"
           id="search"
           name="search"
           type="text"

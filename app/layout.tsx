@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-slate-50 text-primary-dark`}>
+      <body className={`${inter.className} bg-gray-100 text-gray-900`}>
         <ClientProvider>
           <Header />
           <main className="container mb-4 min-h-screen max-xl:w-96">
