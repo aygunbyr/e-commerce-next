@@ -1,23 +1,21 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-// Define the Button component with TypeScript
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  // Additional props can be defined here if needed
-}
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const Button: React.FC<ButtonProps> = ({ children, className, ...props }) => {
-  // Define default classes
   const defaultClasses =
-    'min-w-content inline-flex items-center justify-center gap-1 rounded bg-primary-dark p-1 text-primary-light transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-primary';
+    'min-w-content inline-flex items-center justify-center gap-1 rounded bg-primary-dark py-1 px-2 text-primary-light transition-all duration-200 xl:hover:shadow xl:hover:shadow-primary xl:hover:bg-secondary';
+  const disabledButtonStyle =
+    'border border-primary bg-transparent px-2 text-primary hover:xl:bg-transparent xl:hover:shadow-none';
 
-  // Merge default classes with the ones passed as props using twMerge
   const combinedClasses = twMerge(defaultClasses, className);
+  const disabledClasses = twMerge(combinedClasses, disabledButtonStyle);
 
   return (
     <button
       aria-label={props['aria-label']}
-      className={combinedClasses}
+      className={props.disabled ? disabledClasses : combinedClasses}
       {...props}
     >
       {children}

@@ -40,39 +40,19 @@ const ProductsPagination = () => {
 
   return (
     <div className="text-md mx-auto mb-4 mt-2 flex items-center justify-center gap-3 rounded-md bg-primary-light px-2 py-1">
-      <Button
-        disabled={!hasPreviousPage}
-        onClick={gotoPreviousPage}
-        className={`px-2 ${
-          !hasPreviousPage &&
-          'border border-primary bg-transparent text-primary xl:hover:shadow-none'
-        }`}
-      >
+      <Button disabled={!hasPreviousPage} onClick={gotoPreviousPage}>
         &larr;
       </Button>
 
       {hasPreviousPage && (
-        <Button className="px-2" onClick={gotoPreviousPage}>
-          {currentPage - 1}
-        </Button>
+        <Button onClick={gotoPreviousPage}>{currentPage - 1}</Button>
       )}
 
-      <p className="font-bold">{currentPage}</p>
+      <Button disabled>{currentPage}</Button>
 
-      {hasNextPage && (
-        <Button className="px-2" onClick={gotoNextPage}>
-          {currentPage + 1}
-        </Button>
-      )}
+      {hasNextPage && <Button onClick={gotoNextPage}>{currentPage + 1}</Button>}
 
-      <Button
-        disabled={!hasNextPage}
-        onClick={gotoNextPage}
-        className={`px-2 ${
-          !hasNextPage &&
-          'border border-primary bg-transparent text-primary xl:hover:shadow-none'
-        }`}
-      >
+      <Button disabled={!hasNextPage} onClick={gotoNextPage}>
         &rarr;
       </Button>
     </div>

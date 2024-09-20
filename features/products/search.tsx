@@ -64,7 +64,7 @@ export default function Search() {
               <Link
                 key={product.id}
                 href={`/products/${product.id}`}
-                className="inline-flex w-full cursor-pointer items-center gap-2 rounded-lg p-2 hover:bg-gray-100"
+                className="inline-flex w-full cursor-pointer items-center gap-2 p-2 hover:bg-gray-100"
                 onClick={() => setIsFocused(false)}
               >
                 <Image
@@ -73,7 +73,7 @@ export default function Search() {
                   height={20}
                   alt={product.title}
                 />
-                <span>{product.title}</span>
+                <span className="line-clamp-1">{product.title}</span>
               </Link>
             ))}
           <span
