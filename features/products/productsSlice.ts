@@ -3,9 +3,6 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { Product } from '@/types';
 
 export interface ProductsState {
-  product: Product | null;
-  productError: any;
-  productLoading: boolean;
   filteredProducts: Product[];
   selectedCategory: string;
   searchText: string;
@@ -15,9 +12,6 @@ export interface ProductsState {
 }
 
 const initialState: ProductsState = {
-  product: null,
-  productError: null,
-  productLoading: false,
   filteredProducts: [],
   selectedCategory: 'all',
   searchText: '',
