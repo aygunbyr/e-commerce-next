@@ -38,7 +38,7 @@ const Card = ({ product }: CardProps) => {
   const handleImageLoad = () => {
     setTimeout(() => {
       setIsLoadingImage(false);
-    }, 500);
+    }, 1000);
   };
 
   return (
@@ -47,7 +47,7 @@ const Card = ({ product }: CardProps) => {
       <div className={`${isLoadingImage && 'h-0 w-0 overflow-hidden'}`}>
         <div
           id="product-card"
-          className="group relative flex h-[250px] w-full animate-landing flex-col gap-1 overflow-hidden rounded border border-gray-100 bg-white p-2 shadow transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-gray-500"
+          className="group relative flex h-[250px] w-full flex-col gap-1 overflow-hidden rounded border border-gray-100 bg-white p-2 shadow transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-gray-500"
         >
           <Link
             aria-label={product.title}
