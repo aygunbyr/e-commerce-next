@@ -19,7 +19,7 @@ const ProductsList = () => {
   function clearSkeletonsAfterTimeout() {
     setTimeout(() => {
       setIsShowingSkeletons(false);
-    }, 1000);
+    }, 500);
   }
 
   useEffect(() => {

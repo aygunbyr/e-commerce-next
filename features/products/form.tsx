@@ -1,9 +1,10 @@
 'use client';
+import { useState } from 'react';
 import {
   MagnifyingGlassIcon,
   ShoppingBagIcon,
 } from '@heroicons/react/24/outline';
-
+import { MdFilterListOff } from 'react-icons/md';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   setSelectedCategory,
@@ -12,8 +13,10 @@ import {
 import { toCapitalCase } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import { getCategories } from '@/services/products';
+import Button from '@/components/button';
 
 const ProductsForm = () => {
+  const [searchBarText, setSearchBarText] = useState<string>('');
   const { selectedCategory, searchText } = useAppSelector(
     (state) => state.products,
   );
@@ -32,6 +35,15 @@ const ProductsForm = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
+
+  function handleSearchTextSubmit() {
+    dispatch(setSearchText(searchBarText));
+  }
+
+  function clearSearchText() {
+    setSearchBarText('');
+    dispatch(setSearchText(''));
+  }
 
   if (isError) {
     return <p>Error: {error.message}</p>;
@@ -70,9 +82,7 @@ const ProductsForm = () => {
         <label htmlFor="search" className="sr-only">
           Search:
         </label>
-        <span>
-          <MagnifyingGlassIcon aria-hidden="true" width={20} />
-        </span>
+        <span></span>
         <input
           className="rounded-sm border border-transparent bg-white px-1 focus:outline-none"
           id="search"
@@ -80,10 +90,20 @@ const ProductsForm = () => {
           type="text"
           placeholder="Search..."
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch(setSearchText(event.target.value))
+            setSearchBarText(event.target.value)
           }
-          value={searchText}
+          value={searchBarText}
         />
+        <Button type="submit" onClick={handleSearchTextSubmit}>
+          <MagnifyingGlassIcon aria-hidden="true" width={20} />
+        </Button>
+        <Button
+          className="bg-red-500"
+          disabled={searchText === ''}
+          onClick={clearSearchText}
+        >
+          <MdFilterListOff aria-hidden="true" width={20} />
+        </Button>
       </div>
     </form>
   );
