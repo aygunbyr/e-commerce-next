@@ -13,9 +13,10 @@ import Button from '../../components/button';
 import CardSkeleton from './card-skeleton';
 interface CardProps {
   product: Product;
+  isVisible: boolean;
 }
 
-const Card = ({ product }: CardProps) => {
+const Card = ({ product, isVisible }: CardProps) => {
   const { title, price, image } = product;
   const { state, dispatch } = useCart();
   const [isLoadingImage, setIsLoadingImage] = useState(true);
@@ -36,15 +37,12 @@ const Card = ({ product }: CardProps) => {
   };
 
   const handleImageLoad = () => {
-    setTimeout(() => {
-      setIsLoadingImage(false);
-    }, 1000);
+    setIsLoadingImage(false);
   };
 
   return (
     <>
-      {isLoadingImage && <CardSkeleton />}
-      <div className={`${isLoadingImage && 'h-0 w-0 overflow-hidden'}`}>
+      <div className={`${!isVisible && 'h-0 w-0 overflow-hidden'}`}>
         <div
           id="product-card"
           className="group relative flex h-[250px] w-full flex-col gap-1 overflow-hidden rounded border border-gray-100 bg-white p-2 shadow transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-gray-500"
