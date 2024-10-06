@@ -10,6 +10,7 @@ import ToastService from '@/services/toastService';
 import { useCart } from '@/features/cart/cart-provider';
 import { Product } from '@/models/product';
 import Button from '../../components/button';
+import { formatCurrency } from '@/utils';
 
 interface CardProps {
   product: Product;
@@ -42,7 +43,7 @@ const Card = ({ product, isVisible }: CardProps) => {
           className="group relative flex h-[250px] w-full flex-col gap-1 overflow-hidden rounded border border-gray-100 bg-white p-2 shadow transition-all duration-200 xl:hover:shadow-md xl:hover:shadow-gray-500"
         >
           <Link
-            aria-label={product.title}
+            aria-label={`Go to product page ${product.title}`}
             className="flex flex-col"
             key={product.id}
             href={`/products/${product.id}`}
@@ -63,7 +64,7 @@ const Card = ({ product, isVisible }: CardProps) => {
             </div>
             <div className="absolute top-52">
               <p className="whitespace-nowrap text-[28px] font-bold leading-tight">
-                ${price}
+                ${formatCurrency(price)}
               </p>
             </div>
           </Link>

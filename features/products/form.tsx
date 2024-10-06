@@ -84,6 +84,7 @@ const ProductsForm = () => {
         </label>
         <span></span>
         <input
+          aria-label="Search products"
           className="rounded-sm border border-transparent bg-white px-1 focus:outline-none"
           id="search"
           name="search"
@@ -95,6 +96,7 @@ const ProductsForm = () => {
           value={searchBarText}
         />
         <Button
+          aria-label="Search products"
           className="h-7 w-9"
           type="submit"
           onClick={handleSearchTextSubmit}
@@ -102,6 +104,7 @@ const ProductsForm = () => {
           <MagnifyingGlassIcon aria-hidden="true" width={20} />
         </Button>
         <Button
+          aria-label="Reset search filters"
           className="h-7 w-9"
           disabled={searchText === ''}
           onClick={clearSearchText}

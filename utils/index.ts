@@ -7,6 +7,6 @@ export const toCapitalCase = (str: string): string => {
 };
 
 export const formatCurrency = (number: number): string => {
-  return number.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
+  const decimalSeperatorRegex = /\B(?=(\d{3})+(?!\d))/g;
+  return number.toFixed(2).toString().replace(decimalSeperatorRegex, ',');
+};

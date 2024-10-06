@@ -62,6 +62,7 @@ export default function Search() {
           {filteredProducts.length > 0 &&
             filteredProducts.map((product) => (
               <Link
+                aria-label={`Go to product page ${product.title}`}
                 key={product.id}
                 href={`/products/${product.id}`}
                 className="inline-flex w-full cursor-pointer items-center gap-2 p-2 hover:bg-gray-100"

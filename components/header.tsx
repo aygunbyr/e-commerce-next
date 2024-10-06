@@ -16,7 +16,7 @@ const Header = () => {
         <div className="flex flex-col items-center justify-between px-1 py-1 sm:flex-row sm:gap-6">
           <Link
             href="/"
-            aria-label="e-commerce"
+            aria-label="Go to home page"
             className="text-3xl font-bold text-gray-100"
           >
             e-commerce

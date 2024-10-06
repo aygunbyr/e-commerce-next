@@ -40,19 +40,19 @@ const ProductsPagination = () => {
 
   return (
     <div className="text-md mx-auto mb-4 mt-2 flex items-center justify-center gap-3 rounded-md bg-primary-light px-2 py-1">
-      <Button disabled={!hasPreviousPage} onClick={gotoPreviousPage}>
+      <Button aria-label="Go to previous page" disabled={!hasPreviousPage} onClick={gotoPreviousPage}>
         &larr;
       </Button>
 
       {hasPreviousPage && (
-        <Button onClick={gotoPreviousPage}>{currentPage - 1}</Button>
+        <Button aria-label={`Go to page ${currentPage -1}`} onClick={gotoPreviousPage}>{currentPage - 1}</Button>
       )}
 
       <Button disabled>{currentPage}</Button>
 
-      {hasNextPage && <Button onClick={gotoNextPage}>{currentPage + 1}</Button>}
+      {hasNextPage && <Button aria-label={`Go to page ${currentPage + 1}`} onClick={gotoNextPage}>{currentPage + 1}</Button>}
 
-      <Button disabled={!hasNextPage} onClick={gotoNextPage}>
+      <Button aria-label="Go to next page" disabled={!hasNextPage} onClick={gotoNextPage}>
         &rarr;
       </Button>
     </div>
