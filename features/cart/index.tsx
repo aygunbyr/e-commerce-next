@@ -5,7 +5,7 @@ import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import ToastService from '@/services/toastService';
 
 import { useCart } from './cart-provider';
-import type { ProductWithQuantity } from '@/types';
+import type { Product } from '@/models/product';
 import Loading from '@/components/loading';
 import { formatCurrency } from '@/utils';
 import CartItemDesktop from './cart-item-desktop';
@@ -22,8 +22,8 @@ const Cart = () => {
 
   const totalPrice = useMemo(() => {
     return cart.products.reduce(
-      (acc: number, product: ProductWithQuantity) =>
-        acc + product.price * product.quantity,
+      (acc: number, product: Product) =>
+        acc + product.price * product.quantity!,
       0,
     );
   }, [cart.products]);
@@ -41,7 +41,7 @@ const Cart = () => {
           : 'Cart is empty.'}
       </h3>
 
-      {cart?.products?.length > 0 && (
+      {cart.products.length > 0 && (
         <>
           <div className="mt-3 hidden overflow-auto rounded-lg shadow md:block">
             <table className="mb-4 w-full border border-primary-dark text-left">
@@ -63,7 +63,7 @@ const Cart = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:hidden">
-            {cart?.products?.map((product, index) => (
+            {cart.products.map((product, index) => (
               <CartItemMobile key={index} product={product} />
             ))}
           </div>

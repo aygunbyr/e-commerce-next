@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Product } from '../types';
+import type { Product } from '../models/product';
 
 const api = axios.create({
   baseURL: 'https://fakestoreapi.com',
@@ -48,3 +48,5 @@ export const getProducts = async (): Promise<Product[]> => {
 export const getProductById = async (id: number): Promise<Product> => {
   return getData<Product>(`/products/${id}`);
 };
+
+export default api;

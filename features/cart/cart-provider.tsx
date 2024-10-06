@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useReducer } from 'react';
 
-import type { Product, ProductWithQuantity } from '@/types';
+import type { Product } from '@/models/product';
 import cartReducer from './cart-reducer';
 
 export type CartActionType =
@@ -19,11 +19,11 @@ export type CartAction =
   | { type: 'EMPTY_CART' }
   | { type: 'INCREASE_QUANTITY'; payload: { id: number } }
   | { type: 'DECREASE_QUANTITY'; payload: { id: number } }
-  | { type: 'LOAD_CART'; payload: ProductWithQuantity[] };
+  | { type: 'LOAD_CART'; payload: Product[] };
 
 export interface CartContextState {
   loading: boolean;
-  products: ProductWithQuantity[];
+  products: Product[];
 }
 
 const initialState: CartContextState = {
@@ -48,9 +48,7 @@ export const CartProvider = ({ children }: React.PropsWithChildren) => {
     const storedCart = localStorage.getItem('cart');
     dispatch({
       type: 'LOAD_CART',
-      payload: (storedCart
-        ? JSON.parse(storedCart)
-        : []) as ProductWithQuantity[],
+      payload: (storedCart ? JSON.parse(storedCart) : []) as Product[],
     });
   }, []);
 

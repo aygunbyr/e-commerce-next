@@ -5,18 +5,18 @@ import Link from 'next/link';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 import Button from '@/components/button';
-import type { ProductWithQuantity } from '@/types';
+import type { Product } from '@/models/product';
 import { formatCurrency } from '@/utils';
 import { useCart } from './cart-provider';
 import ToastService from '@/services/toastService';
 
-const CartItemDesktop = ({ product }: { product: ProductWithQuantity }) => {
+const CartItemDesktop = ({ product }: { product: Product }) => {
   const { dispatch } = useCart();
 
-  const removeItem = (product: ProductWithQuantity) => {
+  const removeItem = (product: Product) => {
     dispatch({
       type: 'REMOVE_ITEM',
-      payload: { id: product?.id },
+      payload: { id: product.id },
     });
     ToastService.error(`${product.title} removed from cart 🛒`);
   };

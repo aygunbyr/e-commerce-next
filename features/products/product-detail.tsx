@@ -9,9 +9,9 @@ import { formatCurrency } from '@/utils';
 import { useMemo } from 'react';
 import Loading from '../../components/loading';
 import Button from '@/components/button';
-import { Product } from '@/types';
+import { Product } from '@/models/product';
 import { useQuery } from '@tanstack/react-query';
-import { getProductById } from '@/services/productsApi';
+import { getProductById } from '@/services/productsApiService';
 
 interface ProductDetailProps {
   productId: number;

@@ -12,7 +12,7 @@ import {
 } from '@/features/products/productsSlice';
 import { toCapitalCase } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
-import { getCategories } from '@/services/productsApi';
+import { getCategories } from '@/services/productsApiService';
 import Button from '@/components/button';
 
 const ProductsForm = () => {
@@ -94,11 +94,15 @@ const ProductsForm = () => {
           }
           value={searchBarText}
         />
-        <Button type="submit" onClick={handleSearchTextSubmit}>
+        <Button
+          className="h-7 w-9"
+          type="submit"
+          onClick={handleSearchTextSubmit}
+        >
           <MagnifyingGlassIcon aria-hidden="true" width={20} />
         </Button>
         <Button
-          className="bg-red-500"
+          className="h-7 w-9"
           disabled={searchText === ''}
           onClick={clearSearchText}
         >

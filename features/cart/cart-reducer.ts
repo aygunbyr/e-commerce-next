@@ -1,4 +1,4 @@
-import { ProductWithQuantity } from '@/types';
+import { Product } from '@/models/product';
 import type { CartAction, CartContextState } from './cart-provider';
 
 const cartReducer = (state: CartContextState, action: CartAction) => {
@@ -8,7 +8,7 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
         ...state,
         products: [
           ...state.products,
-          { ...action.payload, quantity: 1 } as ProductWithQuantity,
+          { ...action.payload, quantity: 1 } as Product,
         ],
       };
 
@@ -29,7 +29,7 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
     case 'INCREASE_QUANTITY': {
       const updatedProducts = state.products.map((item) =>
         item.id === action.payload.id
-          ? { ...item, quantity: item.quantity + 1 }
+          ? { ...item, quantity: (item.quantity || 0) + 1 }
           : item,
       );
       return {
@@ -42,10 +42,10 @@ const cartReducer = (state: CartContextState, action: CartAction) => {
       const updatedProducts = state.products
         .map((item) =>
           item.id === action.payload.id
-            ? { ...item, quantity: item.quantity - 1 }
+            ? { ...item, quantity: (item.quantity || 0) - 1 }
             : item,
         )
-        .filter((item) => item.quantity > 0);
+        .filter((item) => item.quantity! > 0);
       return {
         ...state,
         products: updatedProducts,

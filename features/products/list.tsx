@@ -3,8 +3,8 @@ import { useAppSelector } from '@/redux/hooks';
 import Card from '@/features/products/card';
 import Loading from '@/components/loading';
 import { useQuery } from '@tanstack/react-query';
-import { Product } from '@/types';
-import { getProducts } from '@/services/productsApi';
+import { Product } from '@/models/product';
+import { getProducts } from '@/services/productsApiService';
 import CardSkeleton from './card-skeleton';
 
 const ProductsList = () => {
@@ -37,8 +37,8 @@ const ProductsList = () => {
 
   return (
     <section id="products" className="flex flex-wrap">
-      {filteredProducts?.length > 0 ? (
-        filteredProducts?.map((product) => {
+      {filteredProducts.length > 0 ? (
+        filteredProducts.map((product) => {
           return (
             <div
               key={product.id}

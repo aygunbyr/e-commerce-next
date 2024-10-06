@@ -17,8 +17,8 @@ import {
   setSearchText,
 } from '@/features/products/productsSlice';
 import { useQuery } from '@tanstack/react-query';
-import { Product } from '@/types';
-import { getCategories, getProducts } from '@/services/productsApi';
+import { Product } from '@/models/product';
+import { getCategories, getProducts } from '@/services/productsApiService';
 
 const Products = () => {
   const router = useRouter();

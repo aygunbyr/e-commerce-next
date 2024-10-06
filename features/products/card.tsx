@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
@@ -8,9 +8,9 @@ import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/s
 import ToastService from '@/services/toastService';
 
 import { useCart } from '@/features/cart/cart-provider';
-import { Product } from '@/types';
+import { Product } from '@/models/product';
 import Button from '../../components/button';
-import CardSkeleton from './card-skeleton';
+
 interface CardProps {
   product: Product;
   isVisible: boolean;
@@ -19,25 +19,19 @@ interface CardProps {
 const Card = ({ product, isVisible }: CardProps) => {
   const { title, price, image } = product;
   const { state, dispatch } = useCart();
-  const [isLoadingImage, setIsLoadingImage] = useState(true);
-  const itemInCart = state.products?.some((item) => item.id === product.id);
+  const itemInCart = state.products.some((item) => item.id === product.id);
 
   const toggleCartAction = () => {
-    if (!product) return;
     if (itemInCart) {
       dispatch({
         type: 'REMOVE_ITEM',
-        payload: { id: product?.id },
+        payload: { id: product.id },
       });
-      ToastService.error(`${product?.title} removed from cart 🛒`);
+      ToastService.error(`${product.title} removed from cart 🛒`);
     } else if (!itemInCart) {
       dispatch({ type: 'ADD_ITEM', payload: product });
-      ToastService.success(`${product?.title} added to cart 🛒`);
+      ToastService.success(`${product.title} added to cart 🛒`);
     }
-  };
-
-  const handleImageLoad = () => {
-    setIsLoadingImage(false);
   };
 
   return (
@@ -60,7 +54,6 @@ const Card = ({ product, isVisible }: CardProps) => {
                 src={image}
                 alt={product.title}
                 aria-label={product.title}
-                onLoad={handleImageLoad}
               />
             </div>
             <div className="absolute top-40 pt-1">

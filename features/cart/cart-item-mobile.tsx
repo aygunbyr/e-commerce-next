@@ -4,11 +4,11 @@ import Image from 'next/image';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 
 import Button from '@/components/button';
-import type { ProductWithQuantity } from '@/types';
+import type { Product } from '@/models/product';
 import { formatCurrency } from '@/utils';
 import { useCart } from './cart-provider';
 
-const CartItemMobile = ({ product }: { product: ProductWithQuantity }) => {
+const CartItemMobile = ({ product }: { product: Product }) => {
   const { dispatch } = useCart();
 
   return (

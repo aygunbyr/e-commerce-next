@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setSearchBarText } from './productsSlice';
 import { useQuery } from '@tanstack/react-query';
-import { getProducts } from '@/services/productsApi';
-import { Product } from '@/types';
+import { getProducts } from '@/services/productsApiService';
+import { Product } from '@/models/product';
 
 export default function Search() {
   const [isFocused, setIsFocused] = useState<boolean>(false);
