@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartIconSolid } from '@heroicons/react/24/solid';
-import { toast } from 'react-toastify';
+import ToastService from '@/services/toastService';
 
 import { useCart } from '@/features/cart/cart-provider';
 import { Product } from '@/types';
@@ -29,10 +29,10 @@ const Card = ({ product, isVisible }: CardProps) => {
         type: 'REMOVE_ITEM',
         payload: { id: product?.id },
       });
-      toast.error(`${product?.title} removed from cart 🛒`);
+      ToastService.error(`${product?.title} removed from cart 🛒`);
     } else if (!itemInCart) {
       dispatch({ type: 'ADD_ITEM', payload: product });
-      toast.success(`${product?.title} added to cart 🛒`);
+      ToastService.success(`${product?.title} added to cart 🛒`);
     }
   };
 

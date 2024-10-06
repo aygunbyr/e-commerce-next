@@ -4,7 +4,7 @@ import Card from '@/features/products/card';
 import Loading from '@/components/loading';
 import { useQuery } from '@tanstack/react-query';
 import { Product } from '@/types';
-import { getProducts } from '@/services/products';
+import { getProducts } from '@/services/productsApi';
 import CardSkeleton from './card-skeleton';
 
 const ProductsList = () => {

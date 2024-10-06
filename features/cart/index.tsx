@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
-import { toast } from 'react-toastify';
+import ToastService from '@/services/toastService';
 
 import { useCart } from './cart-provider';
 import type { ProductWithQuantity } from '@/types';
@@ -17,7 +17,7 @@ const Cart = () => {
 
   const orderItems = () => {
     dispatch({ type: 'EMPTY_CART' });
-    toast.success('Your products have been shipped');
+    ToastService.success('Your products have been shipped');
   };
 
   const totalPrice = useMemo(() => {

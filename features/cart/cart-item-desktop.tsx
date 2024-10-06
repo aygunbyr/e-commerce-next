@@ -8,7 +8,7 @@ import Button from '@/components/button';
 import type { ProductWithQuantity } from '@/types';
 import { formatCurrency } from '@/utils';
 import { useCart } from './cart-provider';
-import { toast } from 'react-toastify';
+import ToastService from '@/services/toastService';
 
 const CartItemDesktop = ({ product }: { product: ProductWithQuantity }) => {
   const { dispatch } = useCart();
@@ -18,7 +18,7 @@ const CartItemDesktop = ({ product }: { product: ProductWithQuantity }) => {
       type: 'REMOVE_ITEM',
       payload: { id: product?.id },
     });
-    toast.error(`${product.title} removed from cart 🛒`);
+    ToastService.error(`${product.title} removed from cart 🛒`);
   };
 
   return (

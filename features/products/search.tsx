@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setSearchBarText } from './productsSlice';
 import { useQuery } from '@tanstack/react-query';
-import { getProducts } from '@/services/products';
+import { getProducts } from '@/services/productsApi';
 import { Product } from '@/types';
 
 export default function Search() {

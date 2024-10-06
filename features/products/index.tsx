@@ -18,7 +18,7 @@ import {
 } from '@/features/products/productsSlice';
 import { useQuery } from '@tanstack/react-query';
 import { Product } from '@/types';
-import { getCategories, getProducts } from '@/services/products';
+import { getCategories, getProducts } from '@/services/productsApi';
 
 const Products = () => {
   const router = useRouter();

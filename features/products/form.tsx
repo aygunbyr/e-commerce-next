@@ -12,7 +12,7 @@ import {
 } from '@/features/products/productsSlice';
 import { toCapitalCase } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
-import { getCategories } from '@/services/products';
+import { getCategories } from '@/services/productsApi';
 import Button from '@/components/button';
 
 const ProductsForm = () => {

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { toast } from 'react-toastify';
+import ToastService from '@/services/toastService';
 
 import { useCart } from '@/features/cart/cart-provider';
 import { formatCurrency } from '@/utils';
@@ -11,7 +11,7 @@ import Loading from '../../components/loading';
 import Button from '@/components/button';
 import { Product } from '@/types';
 import { useQuery } from '@tanstack/react-query';
-import { getProductById } from '@/services/products';
+import { getProductById } from '@/services/productsApi';
 
 interface ProductDetailProps {
   productId: number;
@@ -42,10 +42,10 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
         type: 'REMOVE_ITEM',
         payload: { id: product?.id },
       });
-      toast.error(`${product?.title} removed from cart 🛒`);
+      ToastService.error(`${product?.title} removed from cart 🛒`);
     } else if (!itemInCart) {
       dispatch({ type: 'ADD_ITEM', payload: product });
-      toast.success(`${product?.title} added to cart 🛒`);
+      ToastService.success(`${product?.title} added to cart 🛒`);
     }
   };
 
