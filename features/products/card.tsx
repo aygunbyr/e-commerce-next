@@ -69,7 +69,7 @@ const Card = ({ product, isVisible }: CardProps) => {
             </div>
           </Link>
           <Button
-            className="absolute right-2 top-2 hidden gap-0 rounded-full p-1.5 group-hover:inline-flex"
+            className="absolute right-2 top-2 hidden gap-0 rounded-full p-1.5 max-lg:inline-flex group-hover:lg:inline-flex"
             aria-label={
               itemInCart ? 'Remove product from cart' : 'Add product to cart'
             }
