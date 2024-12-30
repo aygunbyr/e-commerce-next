@@ -26,7 +26,7 @@ const ProductDetail = ({ productId }: ProductDetailProps) => {
     isError,
     isLoading,
   } = useQuery<Product>({
-    queryKey: ['product', productId],
+    queryKey: ['products', productId],
     queryFn: () => getProductById(productId),
   });
 
